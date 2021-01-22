@@ -1,0 +1,39 @@
+﻿<Window x:Class="GETFITT.winTrackerGraph"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GETFITT"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+        mc:Ignorable="d"
+        Title="winTrackerGraph" Height="740" Width="650">
+    <Grid>
+        <StackPanel HorizontalAlignment="Left" Height="690" Margin="10,10,0,0" VerticalAlignment="Top" Width="623">
+            <Label HorizontalContentAlignment="Center" Content="Tracker Graph " FontSize="24" FontFamily="Arial Rounded MT Bold"/>
+            <lvc:CartesianChart  Series="{Binding SeriesCollectionBMR}" LegendLocation="Right" Margin="0,0,0.2,0" Height="210" >
+                <lvc:CartesianChart.AxisY>
+                    <lvc:Axis Title="Values" LabelFormatter="{Binding YFormatterBMR}"/>
+                </lvc:CartesianChart.AxisY>
+                <lvc:CartesianChart.AxisX>
+                    <lvc:Axis Title="Date" Labels="{Binding LabelsBMR}"/>
+                </lvc:CartesianChart.AxisX>
+            </lvc:CartesianChart>
+            <lvc:CartesianChart Series="{Binding SeriesCollectionBMI}" LegendLocation="Right" Margin="0,0,0.2,0" Height="210" >
+                <lvc:CartesianChart.AxisY>
+                    <lvc:Axis Title="Values" LabelFormatter="{Binding YFormatterBMI}"/>
+                </lvc:CartesianChart.AxisY>
+                <lvc:CartesianChart.AxisX>
+                    <lvc:Axis Title="Date" Labels="{Binding LabelsBMI}"/>
+                </lvc:CartesianChart.AxisX>
+            </lvc:CartesianChart>
+            <lvc:CartesianChart Series="{Binding SeriesCollectionWeight}" LegendLocation="Right" Margin="0,0,0.2,0" Height="210" >
+                <lvc:CartesianChart.AxisY>
+                    <lvc:Axis Title="Kilogram (kg)" LabelFormatter="{Binding YFormatterWeight}"/>
+                </lvc:CartesianChart.AxisY>
+                <lvc:CartesianChart.AxisX>
+                    <lvc:Axis Title="Date" Labels="{Binding LabelsWeight}"/>
+                </lvc:CartesianChart.AxisX>
+            </lvc:CartesianChart>
+        </StackPanel>
+    </Grid>
+</Window>

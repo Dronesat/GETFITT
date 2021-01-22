@@ -1,0 +1,62 @@
+﻿<Window x:Class="GETFITT.winTracker"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GETFITT"
+        mc:Ignorable="d"
+        Title="winTracker" Height="550" Width="905">
+    <Grid>
+        <GroupBox Header="BMR" HorizontalAlignment="Left" Height="405" Margin="5,55,0,0" VerticalAlignment="Top" Width="290">
+            <Grid>
+                <ListBox x:Name="lstBMR" HorizontalAlignment="Left" Height="273" Margin="10,64,0,0" VerticalAlignment="Top" Width="258" BorderBrush="Black"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Height="33" Margin="10,26,0,0" VerticalAlignment="Top" Width="258">
+                    <TextBox x:Name="txtBMR" TextWrapping="Wrap" Width="178" Margin="0,0,0,-0.2" BorderBrush="Black"/>
+                    <Label Content="" Margin="0,0,0,-0.2" Width="10"/>
+                    <Button x:Name="btnAddBMR" Content="Add" Width="70" FontSize="16" Click="btnAddBMR_Click"/>
+                </StackPanel>
+                <Label Content="Enter BMR value:" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Height="30" Margin="10,342,0,0" VerticalAlignment="Top" Width="258">
+                    <Button x:Name="btnSaveBMR" Content="Save" Width="120" Margin="0,0,0,0.4" FontSize="16" Click="btnSaveBMR_Click"/>
+                    <Label Content="" Width="18"/>
+                    <Button x:Name="btnDeleteBMR" Content="Delete" Width="120" Margin="0,0,0,0.4" FontSize="16" Click="btnDeleteBMR_Click"/>
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="BMI" HorizontalAlignment="Left" Height="405" Margin="300,55,0,0" VerticalAlignment="Top" Width="290">
+            <Grid>
+                <ListBox x:Name="lstBMI" HorizontalAlignment="Left" Height="273" Margin="10,64,0,0" VerticalAlignment="Top" Width="258" BorderBrush="Black"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Height="33" Margin="10,26,0,0" VerticalAlignment="Top" Width="258">
+                    <TextBox x:Name="txtBMI" TextWrapping="Wrap" Width="178" Margin="0,0,0,-0.2" BorderBrush="Black"/>
+                    <Label Content="" Margin="0,0,0,-0.2" Width="10"/>
+                    <Button x:Name="btnAddBMI" Content="Add" Width="70" FontSize="16" Click="btnAddBMI_Click"/>
+                </StackPanel>
+                <Label Content="Enter BMI value:" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Height="30" Margin="10,342,0,0" VerticalAlignment="Top" Width="258">
+                    <Button x:Name="btnSaveBMI" Content="Save" Width="120" Margin="0,0,0,0.4" FontSize="16" Click="btnSaveBMI_Click"/>
+                    <Label Content="" Width="18"/>
+                    <Button x:Name="btnDeleteBMI" Content="Delete" Width="120" Margin="0,0,0,0.4" FontSize="16" Click="btnDeleteBMI_Click"/>
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Weight" HorizontalAlignment="Left" Height="405" Margin="595,55,0,0" VerticalAlignment="Top" Width="290">
+            <Grid>
+                <ListBox x:Name="lstWeight" HorizontalAlignment="Left" Height="273" Margin="10,64,0,0" VerticalAlignment="Top" Width="258" BorderBrush="Black"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Height="33" Margin="10,26,0,0" VerticalAlignment="Top" Width="258">
+                    <TextBox x:Name="txtWeight" TextWrapping="Wrap" Width="178" Margin="0,0,0,-0.2" BorderBrush="Black"/>
+                    <Label Content="" Margin="0,0,0,-0.2" Width="10"/>
+                    <Button x:Name="btnAddWeight" Content="Add" Width="70" FontSize="16" Height="32.8" Margin="0,0,0,-0.2" VerticalAlignment="Top" Click="btnAddWeight_Click"/>
+                </StackPanel>
+                <Label Content="Enter weight value: (kg)" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Height="30" Margin="10,342,0,0" VerticalAlignment="Top" Width="258">
+                    <Button x:Name="btnSaveWeight" Content="Save" Width="120" Margin="0,0,0,0.4" FontSize="16" Click="btnSaveWeight_Click"/>
+                    <Label Content="" Width="18"/>
+                    <Button x:Name="btnDeleteWeight" Content="Delete" Width="120" Margin="0,0,0,0.4" FontSize="16" Click="btnDeleteWeight_Click"/>
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+        <Label Content="BMR - BMI - Weight Tracker" HorizontalAlignment="Center" VerticalAlignment="Top" Height="55" Margin="246,0,240.4,0" Width="412" FontSize="30" FontFamily="Arial Rounded MT Bold"/>
+        <Button x:Name="btnExit" Content="Exit" HorizontalAlignment="Left" Margin="801,10,0,0" VerticalAlignment="Top" Width="84" Height="40" FontSize="20" Click="btnExit_Click"/>
+        <Button x:Name="btnTrackerGraph" Content="Tracker Graph" HorizontalAlignment="Left" Margin="10,469,0,0" VerticalAlignment="Top" Width="875" Height="40" FontSize="20" Click="btnTrackerGraph_Click"/>
+    </Grid>
+</Window>

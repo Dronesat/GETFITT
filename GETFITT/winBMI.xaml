@@ -1,0 +1,30 @@
+﻿<Window x:Class="GETFITT.winBMI"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GETFITT"
+        mc:Ignorable="d"
+        Title="BMI" Height="450" Width="800">
+    <Grid>
+        <Label Content="          Body Mass Index &#xD;&#xA;&#x9;Calculator" HorizontalAlignment="Left" Height="87" Margin="10,10,0,0" VerticalAlignment="Top" Width="390" FontFamily="Arial Rounded MT Bold" FontSize="30" FontWeight="Normal"/>
+        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="308" Margin="10,116,0,0" Stroke="Black" VerticalAlignment="Top" Width="390"/>
+        <Label Content="  Your Height" HorizontalAlignment="Left" Height="44" Margin="24,129,0,0" VerticalAlignment="Top" Width="146" FontSize="20" BorderBrush="#FF080002" BorderThickness="1,1,1,1"/>
+        <Label Content="  Your Weight" HorizontalAlignment="Left" Height="44" Margin="24,190,0,0" VerticalAlignment="Top" Width="146" FontSize="20" BorderBrush="#FF080002" BorderThickness="1,1,1,1"/>
+        <TextBox x:Name="txtHeight" HorizontalAlignment="Left" Height="44" Margin="185,129,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="108" FontSize="20"/>
+        <TextBox x:Name="txtWeight" HorizontalAlignment="Left" Height="44" Margin="185,190,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="108" FontSize="20"/>
+        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="414" Margin="405,0,0,0" Stroke="Black" VerticalAlignment="Center" Width="385"/>
+        <Button x:Name="btnResult" Content="Get your result" HorizontalAlignment="Left" Height="42" Margin="102,251,0,0" VerticalAlignment="Top" Width="204" FontSize="20" Click="btnResult_Click"/>
+        <Label Content="Your BMI:" HorizontalAlignment="Left" Height="44" Margin="532,10,0,0" VerticalAlignment="Top" Width="131" FontSize="28"/>
+        <Label x:Name="lblResult" Content="" HorizontalAlignment="Left" Height="47" Margin="435,63,0,0" VerticalAlignment="Top" Width="104" BorderBrush="#FF080002" BorderThickness="1,1,1,1" FontSize="26"/>
+        <Button x:Name="btnReset" Content="Reset" HorizontalAlignment="Left" Height="42" Margin="42,363,0,0" VerticalAlignment="Top" Width="163" FontSize="20" Click="btnReset_Click"/>
+        <Button x:Name="btnExit" Content="Exit" HorizontalAlignment="Left" Height="42" Margin="210,363,0,0" VerticalAlignment="Top" Width="163" FontSize="20" Click="btnExit_Click"/>
+        <Label Content="Understand your BMI result" HorizontalAlignment="Left" Height="49" Margin="467,178,0,0" VerticalAlignment="Top" Width="254" FontSize="20"/>
+        <Label x:Name="lblType" Content="" HorizontalAlignment="Left" Height="47" Margin="544,63,0,0" VerticalAlignment="Top" Width="227" FontSize="26"/>
+        <Label Content="in kg" HorizontalAlignment="Left" Margin="298,195,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <Label Content="in meter" HorizontalAlignment="Left" Margin="298,134,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <TextBlock x:Name="txtSuggestion" HorizontalAlignment="Left" Margin="424,217,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="144" Width="347" FontSize="20"/>
+        <TextBox x:Name="txtLink" HorizontalAlignment="Left" Height="44" Margin="424,366,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="347"/>
+        <Button x:Name="btnSave" Content="Save to Tracker" HorizontalAlignment="Left" Margin="505,127,0,0" VerticalAlignment="Top" Width="170" Height="39" FontSize="20" Click="btnSave_Click"/>
+    </Grid>
+</Window>
