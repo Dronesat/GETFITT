@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GETFITT"
         mc:Ignorable="d"
-        Title="winTipsUpdate" Height="450" Width="800">
+        Title="winTipsUpdate" Height="450" Width="800" ResizeMode="NoResize">
     <Grid>
         <GroupBox Header="Tips" HorizontalAlignment="Left" Height="410" Margin="10,0,0,0" VerticalAlignment="Top" Width="477"/>
         <Grid HorizontalAlignment="Left" Height="400" Margin="24,10,0,0" VerticalAlignment="Top" Width="463">

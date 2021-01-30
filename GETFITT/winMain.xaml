@@ -5,22 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GETFITT"
         mc:Ignorable="d"
-        Title="winMain" Height="500" Width="850">
+        Title="winMain" Height="450" Width="800" ResizeMode="NoResize">
+    <Window.Background>
+        <ImageBrush ImageSource="Resources/Background/3297251.jpg"></ImageBrush>
+    </Window.Background>
     <Grid>
-        <Label x:Name="lblHello" Content="Welcome Back To" HorizontalAlignment="Center" Height="48" VerticalAlignment="Top" Width="274" FontFamily="Arial Rounded MT Bold" FontSize="30" FontWeight="Normal" FontStyle="Normal" Background="White" Foreground="#FF4B1C10"/>
-        <Label x:Name="lblWelcome" Content="GETFITT" HorizontalAlignment="Center" Height="51" Margin="0,37,0,0" VerticalAlignment="Top" Width="184" FontFamily="Arial Rounded MT Bold" FontSize="40" Foreground="#FFFF1C1C"/>
-        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="381" Margin="10,88,0,0" Stroke="Black" VerticalAlignment="Top" Width="378"/>
-        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="381" Margin="393,89,0,0" Stroke="Black" VerticalAlignment="Top" Width="436"/>
-        <Button x:Name="btnGymWorkout" Content="GYM WORKOUT" HorizontalAlignment="Left" Height="61" Margin="47,343,0,0" VerticalAlignment="Top" Width="315" FontSize="28" FontFamily="Arial Rounded MT Bold" Foreground="#FF740808"/>
-        <Button x:Name="btnHomeWorkout" Content="HOME WORKOUT" HorizontalAlignment="Left" Height="61" Margin="47,162,0,0" VerticalAlignment="Top" Width="315" FontSize="28" FontFamily="Arial Rounded MT Bold" Foreground="#FF740808" Click="btnHomeWorkout_Click"/>
-        <Label Content="Today is" HorizontalAlignment="Left" Height="34" Margin="458,106,0,0" VerticalAlignment="Top" Width="81" FontSize="18"/>
-        <Label x:Name="lblToday" Content="" HorizontalAlignment="Left" Height="64" Margin="517,93,0,0" VerticalAlignment="Top" Width="226" FontSize="20" BorderThickness="12,12,12,12"/>
-        <Button x:Name="btnBMI" Content="BMI Calculator" HorizontalAlignment="Left" Height="37" Margin="446,199,0,0" VerticalAlignment="Top" Width="152" FontSize="20" Click="btnBMI_Click"/>
-        <Button x:Name="btnExit" Content="Exit" HorizontalAlignment="Left" Height="38" Margin="765,10,0,0" VerticalAlignment="Top" Width="75" FontSize="22" Click="btnExit_Click"/>
-        <Button x:Name="btnBMR" Content="BMR Calculator" HorizontalAlignment="Left" Height="37" Margin="446,253,0,0" VerticalAlignment="Top" Width="152" FontSize="20" Click="btnBMR_Click" />
-        <Label Content="Here is some nice utilities to help you getfitt" HorizontalAlignment="Left" Margin="446,162,0,0" VerticalAlignment="Top" Width="334" FontSize="16"/>
-        <Button x:Name="btnWater" Content="Water Tracker" HorizontalAlignment="Left" Height="37" Margin="631,199,0,0" VerticalAlignment="Top" Width="164" FontSize="20" Click="btnWater_Click"/>
-        <Button x:Name="btnTipsUpdate" Content="Tips and Update" HorizontalAlignment="Left" Margin="446,375,0,0" VerticalAlignment="Top" Width="152" Height="41" FontSize="20" Click="btnTipsUpdate_Click"/>
-        <Button x:Name="btnTracker" Content="Tracker" HorizontalAlignment="Left" Margin="446,313,0,0" VerticalAlignment="Top" Width="152" Height="44" FontSize="20" Click="btnTracker_Click"/>
+        <Button x:Name="btnHomeWorkout" Background="{x:Null}" BorderThickness="0" Content="HOME WORKOUT" HorizontalAlignment="Left" Height="61" Margin="439,103,0,0" VerticalAlignment="Top" Width="294" FontSize="28" FontFamily="Arial Rounded MT Bold" Foreground="#FF740808" Click="btnHomeWorkout_Click"/>
+        <Label x:Name="lblToday" Content="Today is: 01/01/01" HorizontalAlignment="Left" Height="56" Margin="0,103,0,0" VerticalAlignment="Top" Width="224" FontSize="20" BorderThickness="12,12,12,12" FontFamily="Lucida Sans"/>
+        <Button x:Name="btnExit" Background="{x:Null}"  Content="Exit" HorizontalAlignment="Left" Height="31" Margin="691,10,0,0" VerticalAlignment="Top" Width="93" FontSize="18" Click="btnExit_Click"/>
+        <Button x:Name="btnTipsUpdate" Background="{x:Null}" BorderThickness="0" Content="Tips and Update" HorizontalAlignment="Left" Margin="439,386,0,0" VerticalAlignment="Top" Width="294" Height="34" FontSize="18" Click="btnTipsUpdate_Click" Foreground="Black"/>
+        <Button x:Name="btnTracker" Background="{x:Null}" BorderThickness="0" Content="Tracker" HorizontalAlignment="Left" Margin="439,304,0,0" VerticalAlignment="Top" Width="294" Height="47" FontSize="28" Click="btnTracker_Click" FontFamily="Dubai Medium" Foreground="#FF81CD59"/>
+        <Label x:Name="lblName" HorizontalContentAlignment="Left" Content="Welcome back" HorizontalAlignment="Left" Margin="10,44,0,0" VerticalAlignment="Top" Height="73" Width="370" FontSize="46" FontFamily="Brush Script MT"/>
+        <Button x:Name="btnHealthMonitor" Background="{x:Null}" BorderThickness="0" Content="Health Monitor" HorizontalAlignment="Left" Margin="439,257,0,0" VerticalAlignment="Top" Width="294" Height="47" Click="btnHealthMonitor_Click" FontSize="28" FontFamily="Arial Rounded MT Bold" Foreground="#FFD41C1C"/>
+        <Button x:Name="btnSwitchAcc" Background="{x:Null}"  Content="Switch Account" HorizontalAlignment="Left" Margin="550,10,0,0" VerticalAlignment="Top" Width="136" Height="31" FontSize="18" Click="btnSwitchAcc_Click"/>
+        <Label x:Name="lblWelcome" Content="Good morning" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="370" Height="54" FontSize="24" FontFamily="Lucida Sans"/>
+        <Button x:Name="btnWorkoutTracker" Content="Workout Planner" Foreground="#FF4E3914" Background="{x:Null}" BorderThickness="0" HorizontalAlignment="Left" Margin="439,164,0,0" VerticalAlignment="Top" Width="294" Height="47" FontSize="28" FontFamily="Dubai Medium" Click="btnWorkoutTracker_Click"/>
     </Grid>
 </Window>

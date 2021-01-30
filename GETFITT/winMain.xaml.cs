@@ -1,16 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace GETFITT
 {
@@ -22,61 +11,40 @@ namespace GETFITT
         public winMain()
         {
             InitializeComponent();
+
             //display today date
-            lblToday.Content = DateTime.Now.ToString("d");
+            lblToday.Content = "Today is: "+DateTime.Now.ToString("dd/MM/yy");
+
+            //lblName.Content = "Welcome back, " + user.strUsername + " !";
+            lblName.Content = "Welcome back, " + App.Current.Properties["username"] + " !";
+
+            WelcomeMessage();
         }
+
+        private void WelcomeMessage()
+        {
+            int hourOfDay = Convert.ToInt32(DateTime.Now.ToString("HH"));
+            if (hourOfDay >= 0 && hourOfDay < 12)
+                lblWelcome.Content = "Good Morning, are you feeling good today :)";
+            else if (hourOfDay >= 12 && hourOfDay < 18)
+                lblWelcome.Content = "Good Afternoon";
+            else if (hourOfDay >= 18 && hourOfDay < 21)
+                lblWelcome.Content = "Good Evening,";
+            else if (hourOfDay >= 21 && hourOfDay < 24)
+                lblWelcome.Content = "Good Night";
+        }
+
         private void btnExit_Click(object sender, RoutedEventArgs e)
         {
-            //show messagebox, confirm exit
-            MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Are you sure?", "Bye see y again", System.Windows.MessageBoxButton.YesNo);
-            if (messageBoxResult == MessageBoxResult.Yes)
-                //close the application
-                Application.Current.Shutdown();
-        }
-
-        private void btnBMI_Click(object sender, RoutedEventArgs e)
-        {
-            //open winBMI window         
-            winBMI winbmi = new winBMI();
-            winbmi.Top = 10;
-            winbmi.Left = 30;
-            winbmi.Show();
-        }
-
-        private void btnBMR_Click(object sender, RoutedEventArgs e)
-        {
-            //open winBMR window
-            winBMR winbmr = new winBMR();
-            winbmr.Top = 10;
-            winbmr.Left = 30;
-            winbmr.Show();
-        }
-
-        private void btnWater_Click(object sender, RoutedEventArgs e)
-        {
-            //open winWater window
-            winWater winwater = new winWater();
-            winwater.Top = 10;
-            winwater.Left = 30;
-            winwater.Show();
-        }
-
-        private void btnMyFood_Click(object sender, RoutedEventArgs e)
-        {
-            //open wincreatefood window
-            //winCreateFood wincreatefood = new winCreateFood();
-            //wincreatefood.Top = 10;
-            //wincreatefood.Left = 30;
-            //.Show();
-            
+            Application.Current.Shutdown();
         }
 
         private void btnHomeWorkout_Click(object sender, RoutedEventArgs e)
         {
             //open winHomeWorkout window
             winHomeWorkout homeworkout = new winHomeWorkout();
-            homeworkout.Top = 10;
-            homeworkout.Left = 30;
+            homeworkout.Top = 0;
+            homeworkout.Left = 0;
             homeworkout.Show();
         }
 
@@ -84,7 +52,7 @@ namespace GETFITT
         {
             //open winTipsUpdate window
             winTipsUpdate tipsupdate = new winTipsUpdate();
-            tipsupdate.Top = 10;
+            tipsupdate.Top = 30;
             tipsupdate.Left = 30;
             tipsupdate.Show();
         }
@@ -92,10 +60,36 @@ namespace GETFITT
         private void btnTracker_Click(object sender, RoutedEventArgs e)
         {
             //open winTracker window
-            winTracker wintracker = new winTracker();
-            wintracker.Top = 10;
+            winTrackerGraph wintracker = new winTrackerGraph();
+            wintracker.Top = 30;
             wintracker.Left = 30;
             wintracker.Show();
+        }
+
+        private void btnHealthMonitor_Click(object sender, RoutedEventArgs e)
+        {
+            winHealthMonitor winhealthmonitor = new winHealthMonitor();
+            winhealthmonitor.Top = 30;
+            winhealthmonitor.Left = 30;
+            winhealthmonitor.Show();
+        }
+
+        private void btnSwitchAcc_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+            winLogin winlogin = new winLogin();
+            winlogin.Top = 30;
+            winlogin.Left = 30;
+            winlogin.Show();
+        }
+
+        private void btnWorkoutTracker_Click(object sender, RoutedEventArgs e)
+        {
+            //open winWorkoutPlanner window
+            winWorkoutPlanner winworkoutplanner = new winWorkoutPlanner();
+            winworkoutplanner.Top = 30;
+            winworkoutplanner.Left = 30;
+            winworkoutplanner.Show();
         }
     }
 }

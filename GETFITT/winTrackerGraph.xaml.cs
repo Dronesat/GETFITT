@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using LiveCharts;
+﻿using LiveCharts;
 using LiveCharts.Wpf;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
+using System.Windows;
 
 namespace GETFITT
 {
@@ -21,10 +14,8 @@ namespace GETFITT
     /// </summary>
     public partial class winTrackerGraph : Window
     {
-        //declare string textfile path
-        string BMRtxt = "Tracker/BMR_Tracker.txt";
-        string BMItxt = "Tracker/BMI_Tracker.txt";
-        string Weighttxt = "Tracker/Weight_Tracker.txt";
+        //connection string
+        string strConn = ConfigurationManager.ConnectionStrings["dbGETFITTConnectionString"].ToString();
 
         //BMR graph
         public SeriesCollection SeriesCollectionBMR { get; set; }
@@ -40,131 +31,196 @@ namespace GETFITT
         public SeriesCollection SeriesCollectionWeight { get; set; }
         public string[] LabelsWeight { get; set; }
         public Func<double, string> YFormatterWeight { get; set; }
+
+        //declare array
+        double[] arrBMR;
+        double[] arrBMI;
+        double[] arrWeight;
+        string[] arrDate;
+
         public winTrackerGraph()
         {
             InitializeComponent();
-            BMRGraph(BMRtxt);
-            BMIGraph(BMItxt);
-            WeightGraph(Weighttxt);
+            LoadFromDatabase();
+            BMRGraph();
+            BMIGraph();
+            WeightGraph();
+            LoadDataGrid();
         }
-        public void BMRGraph(string textfile)
+        private void LoadDataGrid()
         {
-            //read from file
-            string[] arrLines = System.IO.File.ReadAllLines(textfile);
-
-            //list of value and date
-            List<double> lstBMRvalue = new List<double>();
-            List<string> lstBMRdate = new List<string>();
-
-            //split each line part
-            foreach (string line in arrLines)
+            try
             {
-                //create parts array
-                string[] arrParts = line.Split(',');
+                //initialize connection
+                using (SqlConnection conn = new SqlConnection(strConn))
+                {
+                    string user_id = App.Current.Properties["id"].ToString();
 
-                //index array
-                double BMRvalue = Convert.ToDouble(arrParts[1]);
-                string BMRdate = arrParts[0];
+                    //sql command
+                    SqlCommand cmd = new SqlCommand("SELECT * FROM HealthStatus WHERE user_id = '" + user_id + "'", conn);
 
-                //add value and date to corresponding lists
-                lstBMRdate.Add(BMRdate);
-                lstBMRvalue.Add(BMRvalue);
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+
+                    //fill datatable
+                    da.Fill(dt);
+
+                    //close and release
+                    conn.Close();
+                    conn.Dispose();
+
+                    //populate dataGridEditor with datatable
+                    dataGridEditor.ItemsSource = dt.DefaultView;
+                }
             }
-            //convert list to array
-            string[] arrBMRdate = lstBMRdate.ToArray();
-            double[] arrBMRvalue = lstBMRvalue.ToArray();
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        private void LoadFromDatabase()
+        {
+            try
+            {
+                //initialize connection
+                using (SqlConnection conn = new SqlConnection(strConn))
+                {
+                    string user_id = App.Current.Properties["id"].ToString();
 
+                    //sql command
+                    SqlCommand cmd = new SqlCommand("SELECT * FROM HealthStatus WHERE user_id = '" + user_id + "'", conn);
+
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+
+                    //fill datatable
+                    da.Fill(dt);
+
+                    //close and release
+                    conn.Close();
+                    conn.Dispose();
+
+                    //create list
+                    List<double> lstBMR = new List<double>();
+                    List<double> lstBMI = new List<double>();
+                    List<double> lstWeight = new List<double>();
+                    List<string> lstDate = new List<string>();
+
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        double bmi = Convert.ToDouble(dr["bmi"].ToString());
+                        double bmr = Convert.ToDouble(dr["bmr"].ToString());
+                        double weight = Convert.ToDouble(dr["weight"].ToString());
+                        DateTime datetime = Convert.ToDateTime(dr["date"].ToString());
+                        string date = Convert.ToString(datetime.ToShortDateString());
+
+                        //add to list
+                        lstBMI.Add(bmi);
+                        lstBMR.Add(bmr);
+                        lstWeight.Add(weight);
+                        lstDate.Add(date);
+                    }
+                    //convert list to array
+                    arrBMI = lstBMI.ToArray();
+                    arrBMR = lstBMR.ToArray();
+                    arrWeight = lstWeight.ToArray();
+                    arrDate = lstDate.ToArray();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void BMRGraph()
+        {
             //draw graph using livechart
             SeriesCollectionBMR = new SeriesCollection
             {
                 new LineSeries
                 {
                     Title = "BMR",
-                    Values = new ChartValues<double>(arrBMRvalue),
+                    Values = new ChartValues<double>(arrBMR),
                     PointGeometrySize = 10
                 },
             };
-            LabelsBMR = arrBMRdate;
+            LabelsBMR = arrDate;
             YFormatterBMR = value => value + "";
             DataContext = this;
         }
-        public void BMIGraph(string textfile)
+
+        private void BMIGraph()
         {
-            //read from file
-            string[] arrLines = System.IO.File.ReadAllLines(textfile);
-
-            //list of value and date
-            List<double> lstBMIvalue = new List<double>();
-            List<string> lstBMIdate = new List<string>();
-
-            //split each line part
-            foreach (string line in arrLines)
-            {
-                //create parts array
-                string[] arrParts = line.Split(',');
-
-                double BMIvalue = Convert.ToDouble(arrParts[1]);
-                string BMIdate = arrParts[0];
-
-                //add value and date to corresponding lists
-                lstBMIdate.Add(BMIdate);
-                lstBMIvalue.Add(BMIvalue);
-            }
-            //convert list to array
-            string[] arrBMIdate = lstBMIdate.ToArray();
-            double[] arrBMIvalue = lstBMIvalue.ToArray();
-
             SeriesCollectionBMI = new SeriesCollection
             {
                 new LineSeries
                 {
                     Title = "BMI",
-                    Values = new ChartValues<double>(arrBMIvalue),
+                    Values = new ChartValues<double>(arrBMI),
                     PointGeometrySize = 10
                 },
             };
-            LabelsBMI = arrBMIdate;
+            LabelsBMI = arrDate;
             YFormatterBMI = value => value + "";
             DataContext = this;
         }
-        public void WeightGraph(string textfile)
+
+        private void WeightGraph()
         {
-            //read from file
-            string[] arrLines = System.IO.File.ReadAllLines(textfile);
-
-            //list of value and date
-            List<double> lstWeightkg = new List<double>();
-            List<string> lstWeightdate = new List<string>();
-
-            //split each line part
-            foreach (string line in arrLines)
-            {
-                //create parts array
-                string[] arrParts = line.Split(',');
-
-                double Weightkg = Convert.ToDouble(arrParts[1]);
-                string Weightdate = arrParts[0];
-
-                //add value and date to corresponding lists
-                lstWeightdate.Add(Weightdate);
-                lstWeightkg.Add(Weightkg);
-            }
-            //convert list to array
-            string[] arrWeightdate = lstWeightdate.ToArray();
-            double[] arrWeightkg = lstWeightkg.ToArray();
-
             SeriesCollectionWeight = new SeriesCollection
             {
                 new LineSeries
                 {
                     Title = "Weight",
-                    Values = new ChartValues<double>(arrWeightkg),
+                    Values = new ChartValues<double>(arrWeight),
                     PointGeometrySize = 10
                 },
             };
-            LabelsWeight = arrWeightdate;
+            LabelsWeight = arrDate;
             YFormatterWeight = value => value + "kg";
             DataContext = this;
+        }
+
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            if (int.TryParse(txtDeleteID.Text, out int delete_id))
+            {
+                try
+                {
+                    SqlConnection conn = new SqlConnection(strConn);
+
+                    //open connection
+                    conn.Open();
+
+                    //execute sql cmd
+                    string strcmd = "DELETE FROM HealthStatus WHERE id = '" + delete_id + "'";
+
+                    //execute cmd
+                    SqlCommand cmd = new SqlCommand(strcmd, conn);
+                    cmd.ExecuteNonQuery();
+
+                    //close connection
+                    conn.Close();
+                    conn.Dispose();
+
+                    //update datagrid 
+                    LoadDataGrid();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Checked entered ID", "Error");
+            }
+        }
+
+        private void btnClose_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

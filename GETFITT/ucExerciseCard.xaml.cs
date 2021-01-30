@@ -1,17 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace GETFITT
 {
@@ -20,7 +10,10 @@ namespace GETFITT
     /// </summary>
     public partial class ucExerciseCard : UserControl
     {
+        public Delegate timer_exercise;
+
         public claExercise currentExercise;
+
         public ucExerciseCard(claExercise newExercise)
         {
             InitializeComponent();
@@ -44,6 +37,11 @@ namespace GETFITT
             winhomeexercise.Top = 10;
             winhomeexercise.Left = 30;
             winhomeexercise.Show();
+        }
+        
+        private void btnTimer_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Sorry this function still in development","Error");
         }
     }
 }

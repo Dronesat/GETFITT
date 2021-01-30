@@ -14,6 +14,7 @@
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -26,12 +27,11 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -42,12 +42,19 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
+    <DebugType>full</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DebugSymbols>true</DebugSymbols>
+    <Prefer32Bit>true</Prefer32Bit>
+    <DocumentationFile>
+    </DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\GETFITT.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="LiveCharts, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
@@ -56,13 +63,14 @@
     <Reference Include="LiveCharts.Wpf, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
       <HintPath>..\packages\LiveCharts.Wpf.0.9.7\lib\net45\LiveCharts.Wpf.dll</HintPath>
     </Reference>
-    <Reference Include="System" />
+    <Reference Include="System">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.dll</HintPath>
+    </Reference>
     <Reference Include="System.Configuration" />
     <Reference Include="System.Configuration.ConfigurationManager, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Configuration.ConfigurationManager.5.0.0\lib\net461\System.Configuration.ConfigurationManager.dll</HintPath>
     </Reference>
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Data.OracleClient" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net" />
@@ -103,26 +111,21 @@
     </Compile>
     <Compile Include="claDataStore.cs" />
     <Compile Include="claExercise.cs" />
-    <Compile Include="IntegerExtensions.cs" />
-    <Compile Include="linqUsers.designer.cs">
+    <Compile Include="dbGETFITTDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>linqUsers.dbml</DependentUpon>
+      <DependentUpon>dbGETFITTDataSet.xsd</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="IntegerExtensions.cs" />
     <Compile Include="ucExerciseCard.xaml.cs">
       <DependentUpon>ucExerciseCard.xaml</DependentUpon>
     </Compile>
-    <Compile Include="winAdmin.xaml.cs">
-      <DependentUpon>winAdmin.xaml</DependentUpon>
+    <Compile Include="winCreateAccount.xaml.cs">
+      <DependentUpon>winCreateAccount.xaml</DependentUpon>
     </Compile>
-    <Compile Include="winBMI.xaml.cs">
-      <DependentUpon>winBMI.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="winBMR.xaml.cs">
-      <DependentUpon>winBMR.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="winCreateFood.xaml.cs">
-      <DependentUpon>winCreateFood.xaml</DependentUpon>
+    <Compile Include="winHealthMonitor.xaml.cs">
+      <DependentUpon>winHealthMonitor.xaml</DependentUpon>
     </Compile>
     <Compile Include="winHomeExercise.xaml.cs">
       <DependentUpon>winHomeExercise.xaml</DependentUpon>
@@ -139,14 +142,14 @@
     <Compile Include="winTipsUpdate.xaml.cs">
       <DependentUpon>winTipsUpdate.xaml</DependentUpon>
     </Compile>
-    <Compile Include="winTracker.xaml.cs">
-      <DependentUpon>winTracker.xaml</DependentUpon>
-    </Compile>
     <Compile Include="winTrackerGraph.xaml.cs">
       <DependentUpon>winTrackerGraph.xaml</DependentUpon>
     </Compile>
-    <Compile Include="winWater.xaml.cs">
-      <DependentUpon>winWater.xaml</DependentUpon>
+    <Compile Include="winUserManagement.xaml.cs">
+      <DependentUpon>winUserManagement.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="winWorkoutPlanner.xaml.cs">
+      <DependentUpon>winWorkoutPlanner.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -167,13 +170,19 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="linqUsers.dbml">
-      <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>linqUsers.designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
+    <None Include="dbGETFITTDataSet.xsc">
+      <DependentUpon>dbGETFITTDataSet.xsd</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="linqUsers.dbml.layout">
-      <DependentUpon>linqUsers.dbml</DependentUpon>
+    <None Include="dbGETFITTDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dbGETFITTDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="dbGETFITTDataSet.xss">
+      <DependentUpon>dbGETFITTDataSet.xsd</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -189,19 +198,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="winAdmin.xaml">
+    <Page Include="winCreateAccount.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="winBMI.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="winBMR.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="winCreateFood.xaml">
+    <Page Include="winHealthMonitor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -225,15 +226,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="winTracker.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="winTrackerGraph.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="winWater.xaml">
+    <Page Include="winUserManagement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="winWorkoutPlanner.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -334,15 +335,6 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Water\bottle_4.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Water\expert.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Water\bottle_1.png" />
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4.7.2 %28x86 and x64%29</ProductName>
@@ -353,6 +345,21 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\GETFITT.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="dbGETFITT.mdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dbGETFITT_log.ldf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <DependentUpon>dbGETFITT.mdf</DependentUpon>
+    </Content>
+    <Resource Include="Resources\Background\3297251.jpg" />
+    <Resource Include="Resources\Background\winCreateAccount.jpg" />
+    <Resource Include="Resources\Background\winLogin.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
