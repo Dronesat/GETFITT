@@ -5,16 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GETFITT"
         mc:Ignorable="d"
-        Title="Login" Height="400" Width="450">
+        Title="GETFITT" Height="510" Width="450" ResizeMode="NoResize"
+        WindowStartupLocation="Manual"
+        Left="30" Top="30">
+    <Window.Background>
+        <ImageBrush ImageSource="Resources/Background/winLogin.jpg" Stretch="None"/>
+    </Window.Background>
     <Grid>
-        <StackPanel HorizontalAlignment="Left" Height="100" Margin="33,129,0,0" VerticalAlignment="Top" Width="100">
-            <Label Content="Username" FontSize="20" Height="38"/>
-            <Label Content="Password" FontSize="20" Height="38"/>
+        <Label Content="GETFITT" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="10,38,5.2,0" VerticalAlignment="Top" Height="50" Width="428" FontSize="40" FontFamily="Arial Rounded MT Bold" Background="White" Foreground="Red"/>
+        <StackPanel HorizontalAlignment="Left" Height="184" Margin="57,179,0,0" VerticalAlignment="Top" Width="325">
+            <Label Content="Username" Height="22" Margin="0,0,-0.2,0" FontSize="10"/>
+            <TextBox x:Name="txtUsername" VerticalContentAlignment="Center" Height="35" TextWrapping="Wrap" Margin="0" FontSize="16" Text="hieu"/>
+            <Label Content="Password" Height="22" Margin="0,0,-0.2,0" FontSize="10"/>
+            <TextBox x:Name="txtPassword" VerticalContentAlignment="Center" Height="35" TextWrapping="Wrap" FontSize="16" Text="le"/>
+            <Label Content="" Height="15"/>
+            <Button x:Name="btnLogin" Background="{x:Null}" BorderThickness="0" Content="Log In" Height="46" Margin="0,0,-0.2,0" FontSize="26" Click="btnLogin_Click" Foreground="#FF362C51" FontFamily="Arial Rounded MT Bold"/>
         </StackPanel>
-        <StackPanel HorizontalAlignment="Left" Height="100" Margin="133,129,0,0" VerticalAlignment="Top" Width="286">
-            <TextBox x:Name="txtUsername" Height="38" TextWrapping="Wrap" FontSize="20" Margin="0,0,0.4,0"/>
-            <TextBox x:Name="txtPassword" Height="38" TextWrapping="Wrap" FontSize="20"/>
-        </StackPanel>
-        <Button x:Name="btnLogin" Content="Login" HorizontalAlignment="Left" Margin="168,249,0,0" VerticalAlignment="Top" Width="105" Height="44" FontSize="20" Click="btnLogin_Click"/>
+        <Button x:Name="btnCreateAcc" Background="{x:Null}" BorderThickness="0" Content="Create New Account" HorizontalAlignment="Left" Margin="117,379,0,0" VerticalAlignment="Top" Width="215" Height="40" FontSize="19" Click="btnCreateAcc_Click" FontFamily="Arial Rounded MT Bold"/>
+        <Button x:Name="btnExit" Background="{x:Null}" BorderThickness="0" Content="Exit" HorizontalAlignment="Left" Margin="135,424,0,0" VerticalAlignment="Top" Width="175" Height="36" FontSize="20" Click="btnExit_Click" FontFamily="Arial Rounded MT Bold"/>
     </Grid>
 </Window>

@@ -1,0 +1,89 @@
+﻿<Window x:Class="GETFITT.winHealthMonitor"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GETFITT"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+        mc:Ignorable="d"
+        Title="winHealthMonitor" Height="450" Width="800" d:DataContext="{d:DesignInstance local:winHealthMonitor}" ResizeMode="NoResize">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="0*"/>
+        </Grid.RowDefinitions>
+        <TabControl Margin="0,0,-0.4,-2" Grid.RowSpan="2">
+            <TabItem Header="Stats" Height="30" Width="100" FontSize="16">
+                <Grid>
+                    <StackPanel Margin="28,24,668,215.4">
+                        <Label Content="Height" FontSize="20" Height="40"/>
+                        <Label Content="Weight" FontSize="20" Height="40"/>
+                        <Label Content="Age" FontSize="20" Height="40"/>
+                    </StackPanel>
+                    <StackPanel Margin="120,24,525,215.4">
+                        <TextBox x:Name="txtHeight" Height="40" FontSize="20" TextWrapping="Wrap" Margin="1,0,0,0" BorderBrush="Black"/>
+                        <TextBox x:Name="txtWeight" Height="40" FontSize="20" TextWrapping="Wrap" Margin="1,0,0,0" BorderBrush="Black"/>
+                        <TextBox x:Name="txtAge" Height="40" FontSize="20" TextWrapping="Wrap" Margin="1,0,0,0" BorderBrush="Black"/>
+                    </StackPanel>
+                    <StackPanel Margin="268,24,405,232.4">
+                        <Label Content="(centimeters)" FontSize="16" Height="40" HorizontalAlignment="Left"/>
+                        <Label Content="(kilograms)" FontSize="16" Height="40" HorizontalAlignment="Left"/>
+                        <Label Content="(years)" FontSize="16" Height="40" HorizontalAlignment="Left"/>
+                    </StackPanel>
+                    <ListBox x:Name="lstActivityLevel" HorizontalAlignment="Left" Height="100" Margin="418,47,0,0" VerticalAlignment="Top" Width="313" Background="White" BorderBrush="Black">
+                        <ListBoxItem Content="Sedentary or light activity " FontSize="18"/>
+                        <ListBoxItem Content="Active or moderately active " FontSize="18"/>
+                        <ListBoxItem Content="Vigorously active " FontSize="18"/>
+                    </ListBox>
+                    <StackPanel Margin="125,167,525,159.4">
+                        <RadioButton x:Name="radioBtnMale" FontSize="20" Content="Male"/>
+                        <RadioButton x:Name="radioBtnFemale" FontSize="20" Content="Female"/>
+                    </StackPanel>
+                    <Label Content="Gender" FontSize="22" Margin="28,167,668,164.4"/>
+                    <Label Content="Activity Level:" HorizontalAlignment="Left" Margin="418,15,0,0" VerticalAlignment="Top"/>
+                    <Button x:Name="btnSave" Content="Save to Database"  Margin="418,286,23,0" VerticalAlignment="Top" Width="347" Height="52" FontSize="20" Click="btnSave_Click"/>
+                    <Button x:Name="btnCalculate" Content="Calculate BMI &amp; BMR" Margin="28,286,413,46" FontSize="20" Click="btnCalculate_Click"/>
+                    <Button x:Name="btnStatsClose" Content="Close" Margin="678,1,10,342" Click="btnClose_Click"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="BMR" Height="30" Width="100" FontSize="16">
+                <Grid>
+                    <Label Content="Basal Metabolic Rate" HorizontalAlignment="Left" Margin="228,1,0,0" VerticalAlignment="Top" Height="53" Width="320" FontSize="30" FontFamily="Arial Rounded MT Bold"/>
+                    <Button x:Name="btnBMRInfo" Content="What's this?" HorizontalAlignment="Left" Margin="228,53,0,0" VerticalAlignment="Top" Width="320" Height="40" FontSize="26" Click="btnBMRInfo_Click"/>
+                    <Label Content="Result" HorizontalAlignment="Left" Margin="38,99,0,0" VerticalAlignment="Top" Height="53" Width="114" FontSize="26"/>
+                    <Label x:Name="lblBMRResult" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Height="53" Width="149" FontSize="26" Margin="38,134,0,0" BorderBrush="Black" BorderThickness="1"/>
+                    <Label Content="Calories/Day" HorizontalAlignment="Left" Margin="192,134,0,0" VerticalAlignment="Top" Height="53" Width="138" FontSize="22" VerticalContentAlignment="Center"/>
+                    <Button x:Name="btnBMRClose" Content="Close" Margin="678,1,10,342" Click="btnClose_Click"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="BMI" Height="30" Width="100" FontSize="16">
+                <Grid>
+                    <Label Content="Body Mass Index" HorizontalAlignment="Left" Margin="270,1,0,0" VerticalAlignment="Top" Height="53" Width="257" FontSize="30" FontFamily="Arial Rounded MT Bold"/>
+                    <Button x:Name="btnBMIInfo" Content="What's this?" HorizontalAlignment="Left" Margin="270,53,0,0" VerticalAlignment="Top" Width="257" Height="40" FontSize="26" Click="btnBMIInfo_Click"/>
+                    <Label Content="Result:" HorizontalAlignment="Left" Margin="30,105,0,0" VerticalAlignment="Top" Height="53" Width="82" FontSize="26"/>
+                    <Label x:Name="lblBMIResult" Content="" HorizontalAlignment="Left" Height="53" Margin="117,105,0,0" VerticalAlignment="Top" Width="134" BorderBrush="#FF080002" BorderThickness="1,1,1,1" FontSize="26"/>
+                    <Label x:Name="lblType" HorizontalContentAlignment="Center" Content="" HorizontalAlignment="Left" Height="53" Margin="471,303,0,0" VerticalAlignment="Top" Width="249" FontSize="26"/>
+                    <Label Content="Understand your BMI result:" HorizontalAlignment="Left" Height="49" Margin="30,158,0,0" VerticalAlignment="Top" Width="254" FontSize="20" FontStyle="Italic"/>
+                    <TextBlock x:Name="txtBMISugesstion" HorizontalAlignment="Left" Margin="30,196,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="137" Width="377" FontSize="20"/>
+                    <TextBox x:Name="txtBMILink" HorizontalAlignment="Left" Height="36" Margin="30,338,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="377"/>
+                    <Grid Margin="412,105,10,86">
+                        <lvc:AngularGauge Grid.Row="1" Value="{Binding Value}" FromValue="8.5" ToValue="40" 
+                          LabelsStep="50" TicksStep="25" Wedge="300"
+                          TicksForeground="White" Foreground="White" 
+                          FontWeight="Bold" FontSize="16"
+                          SectionsInnerRadius=".2">
+                            <lvc:AngularGauge.Sections>
+                                <lvc:AngularSection FromValue="8.5" ToValue="18.4" Fill="Blue"/>
+                                <lvc:AngularSection FromValue="18.5" ToValue="24.9" Fill="Green"/>
+                                <lvc:AngularSection FromValue="25" ToValue="29.9" Fill="Orange"/>
+                                <lvc:AngularSection FromValue="30" ToValue="40" Fill="Red"/>
+                            </lvc:AngularGauge.Sections>
+                        </lvc:AngularGauge>
+                    </Grid>
+                    <Button x:Name="btnBMIClose" Content="Close" Margin="678,1,10,342" Click="btnClose_Click"/>
+                </Grid>
+            </TabItem>
+
+        </TabControl>
+    </Grid>
+</Window>

@@ -6,34 +6,57 @@
         xmlns:local="clr-namespace:GETFITT"
         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         mc:Ignorable="d"
-        Title="winTrackerGraph" Height="740" Width="650">
+        Title="winTrackerGraph" Height="350" Width="650" ResizeMode="NoResize">
     <Grid>
-        <StackPanel HorizontalAlignment="Left" Height="690" Margin="10,10,0,0" VerticalAlignment="Top" Width="623">
-            <Label HorizontalContentAlignment="Center" Content="Tracker Graph " FontSize="24" FontFamily="Arial Rounded MT Bold"/>
-            <lvc:CartesianChart  Series="{Binding SeriesCollectionBMR}" LegendLocation="Right" Margin="0,0,0.2,0" Height="210" >
-                <lvc:CartesianChart.AxisY>
-                    <lvc:Axis Title="Values" LabelFormatter="{Binding YFormatterBMR}"/>
-                </lvc:CartesianChart.AxisY>
-                <lvc:CartesianChart.AxisX>
-                    <lvc:Axis Title="Date" Labels="{Binding LabelsBMR}"/>
-                </lvc:CartesianChart.AxisX>
-            </lvc:CartesianChart>
-            <lvc:CartesianChart Series="{Binding SeriesCollectionBMI}" LegendLocation="Right" Margin="0,0,0.2,0" Height="210" >
-                <lvc:CartesianChart.AxisY>
-                    <lvc:Axis Title="Values" LabelFormatter="{Binding YFormatterBMI}"/>
-                </lvc:CartesianChart.AxisY>
-                <lvc:CartesianChart.AxisX>
-                    <lvc:Axis Title="Date" Labels="{Binding LabelsBMI}"/>
-                </lvc:CartesianChart.AxisX>
-            </lvc:CartesianChart>
-            <lvc:CartesianChart Series="{Binding SeriesCollectionWeight}" LegendLocation="Right" Margin="0,0,0.2,0" Height="210" >
-                <lvc:CartesianChart.AxisY>
-                    <lvc:Axis Title="Kilogram (kg)" LabelFormatter="{Binding YFormatterWeight}"/>
-                </lvc:CartesianChart.AxisY>
-                <lvc:CartesianChart.AxisX>
-                    <lvc:Axis Title="Date" Labels="{Binding LabelsWeight}"/>
-                </lvc:CartesianChart.AxisX>
-            </lvc:CartesianChart>
-        </StackPanel>
+        <TabControl>
+            <TabItem Header="BMR" Height="30" Width="100" FontSize="16">
+                <Grid>
+                    <Button Content="Close" x:Name="btnClose" Margin="574,0,-0.4,245.2" Click="btnClose_Click" ></Button>
+                    <lvc:CartesianChart  Series="{Binding SeriesCollectionBMR}" Margin="0,25,-0.4,0.2" >
+                        <lvc:CartesianChart.AxisY>
+                            <lvc:Axis Title="Values" LabelFormatter="{Binding YFormatterBMR}"/>
+                        </lvc:CartesianChart.AxisY>
+                        <lvc:CartesianChart.AxisX>
+                            <lvc:Axis Title="Date" Labels="{Binding LabelsBMR}"/>
+                        </lvc:CartesianChart.AxisX>
+                    </lvc:CartesianChart>
+                </Grid>
+            </TabItem>
+            <TabItem Header="BMI" Height="30" Width="100" FontSize="16">
+                <Grid>
+                    <Button Content="Close" x:Name="btnBMIExit" Margin="574,0,-0.4,245.2" Click="btnClose_Click"></Button>
+                    <lvc:CartesianChart Series="{Binding SeriesCollectionBMI}" Margin="0,30,0,0.2" >
+                        <lvc:CartesianChart.AxisY>
+                            <lvc:Axis Title="Values" LabelFormatter="{Binding YFormatterBMI}"/>
+                        </lvc:CartesianChart.AxisY>
+                        <lvc:CartesianChart.AxisX>
+                            <lvc:Axis Title="Date" Labels="{Binding LabelsBMI}"/>
+                        </lvc:CartesianChart.AxisX>
+                    </lvc:CartesianChart>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Weight" Height="30" Width="100" FontSize="16">
+                <Grid>
+                    <Button Content="Close" x:Name="btnWeightExit" Margin="574,0,-0.4,245.2" Click="btnClose_Click"></Button>
+                    <lvc:CartesianChart Series="{Binding SeriesCollectionWeight}" Margin="0,30,0,0.2" >
+                        <lvc:CartesianChart.AxisY>
+                            <lvc:Axis Title="Kilogram (kg)" LabelFormatter="{Binding YFormatterWeight}"/>
+                        </lvc:CartesianChart.AxisY>
+                        <lvc:CartesianChart.AxisX>
+                            <lvc:Axis Title="Date" Labels="{Binding LabelsWeight}"/>
+                        </lvc:CartesianChart.AxisX>
+                    </lvc:CartesianChart>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Edit Database" Height="30" Width="110" FontSize="16">
+                <Grid>
+                    <Button Content="Close" x:Name="btnEditExit" Margin="574,0,-0.4,245.2" Click="btnClose_Click"></Button>
+                    <DataGrid x:Name="dataGridEditor" Margin="10,52,9.6,10.2" FontSize="14"/>
+                    <Label Content="Enter ID" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="25,10,511.6,236.2" FontSize="18"/>
+                    <TextBox x:Name="txtDeleteID" TextWrapping="Wrap" Margin="126,10,347.6,236.2" FontSize="18" BorderBrush="Black"/>
+                    <Button x:Name="btnDelete" Content="Delete" Margin="320,10,195.6,236.2" FontSize="20" Click="btnDelete_Click"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>

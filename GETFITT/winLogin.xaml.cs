@@ -1,19 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.Data.SqlClient;
-using System.Configuration;
+﻿using System.Configuration;
 using System.Data;
+using System.Data.SqlClient;
+using System.Security.Cryptography;
+using System.Text;
+using System.Windows;
 
 namespace GETFITT
 {
@@ -22,45 +12,105 @@ namespace GETFITT
     /// </summary>
     public partial class winLogin : Window
     {
-        SqlConnection con = new SqlConnection();
+        //connection string
+        readonly string strConn = ConfigurationManager.ConnectionStrings["dbGETFITTConnectionString"].ToString();
+
         public winLogin()
         {
             InitializeComponent();
-            con.ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString.ToString();
+        }
+
+        private void btnCreateAcc_Click(object sender, RoutedEventArgs e)
+        {
+            //open winCreateAccount window
+            winCreateAccount wincreateaccount = new winCreateAccount();
+            wincreateaccount.Top = 30;
+            wincreateaccount.Top = 30;
+            wincreateaccount.Show();
         }
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-            SqlDataAdapter sda = new SqlDataAdapter("select Role from Users where username='" + txtUsername.Text + "' and password='" + txtPassword.Text + "'", con);
-            DataTable dt = new System.Data.DataTable();
-            sda.Fill(dt);
-            if (dt.Rows.Count == 1)
+            //trim left and right
+            string _txtUsername = txtUsername.Text.Trim();
+            string _txtPassword = txtPassword.Text.Trim();
+
+            //initialise connection
+            using (SqlConnection conn = new SqlConnection(strConn))
             {
-                switch (dt.Rows[0]["Role"] as string)
+                SqlDataAdapter da = new SqlDataAdapter("SELECT id, username, password FROM Users WHERE username ='" + _txtUsername + "'", conn);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+
+                //check row count
+                if (dt.Rows.Count > 0)
                 {
-                    case "Admin":
+                    //input password equal one store on database
+                    if (ComputeSha256Hash(_txtPassword).ToString() == dt.Rows[0]["password"].ToString())
+                    {
+                        //Get user id
+                        SqlDataAdapter da_id = new SqlDataAdapter("SELECT id FROM Users WHERE username = '" + _txtUsername + "' AND password = '" + ComputeSha256Hash(_txtPassword).ToString() + "'", conn);
+                        DataTable dt_id = new DataTable();
+                        da_id.Fill(dt_id);
+
+                        //close and release
+                        conn.Close();
+                        conn.Dispose();
+
+                        foreach (DataRow dr in dt_id.Rows)
                         {
-                            // calls the form’s constructor. 
-                            winAdmin winadmin = new winAdmin();
-                            winadmin.Show();
-                            break;
+                            string id = dr["id"].ToString();
+
+                            //set user id to global
+                            App.Current.Properties["id"] = id;
                         }
 
-                    case "User":
-                        {
-                            this.Hide();
-                            winMain winmain = new winMain();
-                            winmain.Show();
-                            break;
-                        }
+                        //set username string global
+                        App.Current.Properties["username"] = _txtUsername;
 
-                    default:
-                        {
-                            MessageBox.Show("Contact admin for asisstant", "Login failed");
-                            break;
-                        }
+
+                        //open winmain
+                        winMain winmain = new winMain();
+                        winmain.Top = 30;
+                        winmain.Left = 30;
+                        winmain.Show();
+
+                        this.Hide();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Login Fail");
+                    }
+                }
+                //row not found
+                else
+                {
+                    MessageBox.Show("Invalid username or password");
                 }
             }
+        }
+        //Convert string to sha256
+        static string ComputeSha256Hash(string rawData)
+        {
+            // Create a SHA256   
+            using (SHA256 sha256Hash = SHA256.Create())
+            {
+                // ComputeHash - returns byte array  
+                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(rawData));
+
+                // Convert byte array to a string   
+                StringBuilder builder = new StringBuilder();
+                for (int i = 0; i < bytes.Length; i++)
+                {
+                    builder.Append(bytes[i].ToString("x2"));
+                }
+                return builder.ToString();
+            }
+        }
+
+        private void btnExit_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
         }
     }
 }
