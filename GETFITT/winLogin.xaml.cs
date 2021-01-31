@@ -33,7 +33,7 @@ namespace GETFITT
         {
             //trim left and right
             string _txtUsername = txtUsername.Text.Trim();
-            string _txtPassword = txtPassword.Text.Trim();
+            string _txtPassword = txtPassword.Password.Trim();
 
             //initialise connection
             using (SqlConnection conn = new SqlConnection(strConn))
@@ -112,5 +112,7 @@ namespace GETFITT
         {
             Application.Current.Shutdown();
         }
+
+
     }
 }

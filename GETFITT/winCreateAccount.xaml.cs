@@ -44,11 +44,11 @@ namespace GETFITT
             if (txtUsername.Text.ToString() != "")
             {
                 //check if txtpassword is not empty
-                if (txtPassword.Text.ToString() != "")
+                if (txtPassword.Password.ToString() != "")
                 {
                     //trim left and right
                     string _txtUsername = txtUsername.Text.Trim();
-                    string _txtPassword = txtPassword.Text.Trim();
+                    string _txtPassword = txtPassword.Password.Trim();
 
                     //encrypt password using sha256
                     string sha256_txtPassword = ComputeSha256Hash(_txtPassword);

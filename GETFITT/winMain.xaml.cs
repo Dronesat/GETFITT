@@ -13,7 +13,7 @@ namespace GETFITT
             InitializeComponent();
 
             //display today date
-            lblToday.Content = "Today is: "+DateTime.Now.ToString("dd/MM/yy");
+            lblToday.Content = "Today is: " + DateTime.Now.ToString("dd/MM/yy");
 
             //lblName.Content = "Welcome back, " + user.strUsername + " !";
             lblName.Content = "Welcome back, " + App.Current.Properties["username"] + " !";

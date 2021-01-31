@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
 
 namespace GETFITT
 {
@@ -135,6 +135,6 @@ namespace GETFITT
             this.Close();
         }
 
-        
+
     }
 }

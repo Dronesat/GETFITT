@@ -1,4 +1,6 @@
-﻿using System;
+﻿using LiveCharts;
+using LiveCharts.Wpf;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -8,8 +10,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using LiveCharts;
-using LiveCharts.Wpf;
 
 namespace GETFITT
 {
@@ -20,7 +20,7 @@ namespace GETFITT
     {
         //connection string
         readonly string strConn = ConfigurationManager.ConnectionStrings["dbGETFITTConnectionString"].ToString();
-        
+
         //declare
         int movementpattern_id;
         string movementpattern;
@@ -35,7 +35,7 @@ namespace GETFITT
         //Graph
         public SeriesCollection SeriesCollection { get; set; }
         public string[] Labels { get; set; }
-        public Func<double, string> YFormatter{ get; set; }
+        public Func<double, string> YFormatter { get; set; }
 
         public winHomeWorkout()
         {
@@ -109,7 +109,7 @@ namespace GETFITT
                 string user_id = App.Current.Properties["id"].ToString();
 
                 //sql command 
-                SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM CompletedExercises WHERE user_id = '"+ user_id + "' AND date = '" + date + "'", conn);
+                SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM CompletedExercises WHERE user_id = '" + user_id + "' AND date = '" + date + "'", conn);
 
                 //open connection
                 conn.Open();
@@ -278,7 +278,7 @@ namespace GETFITT
             if (txtExercise.Text != "")
             {
                 //check if time is exist or not
-                bool time = int.TryParse(txtTime.Text,out int n);
+                bool time = int.TryParse(txtTime.Text, out int n);
                 if (time == true)
                 {
                     //add input from textbox to listbox
@@ -463,7 +463,7 @@ namespace GETFITT
             }
             else
             {
-                MessageBox.Show("Please submit rest time","Error");
+                MessageBox.Show("Please submit rest time", "Error");
             }
         }
 
@@ -574,39 +574,53 @@ namespace GETFITT
 
         private void btnSaveCompletedExercises_Click(object sender, RoutedEventArgs e)
         {
-            try
+            int count = 0;
+            //loop through each exercises
+            for (int i = 0; i < lstExercise.Items.Count; i++)
             {
-                //initialize connection
-                using (SqlConnection conn = new SqlConnection(strConn))
-                {
-                    int user_id = Convert.ToInt32(App.Current.Properties["id"].ToString());
-                    string today_date = DateTime.Today.ToString("yyyy/MM/dd");
-
-                    //sql command
-                    SqlCommand cmd = new SqlCommand("SELECT exercise_id, movementpattern_id FROM ExercisesStopwatch WHERE user_id = '" + user_id + "'", conn);
-                    SqlDataAdapter da = new SqlDataAdapter(cmd);
-                    DataTable dt = new DataTable();
-
-                    //fill datatable
-                    da.Fill(dt);
-
-                    //close connection
-                    conn.Close();
-                    conn.Dispose();
-
-                    foreach (DataRow dr in dt.Rows)
-                    {
-                        int exercise_id = Convert.ToInt32(dr["exercise_id"].ToString());
-                        int movementpattern_id = Convert.ToInt32(dr["movementpattern_id"].ToString());
-
-                        InsertIntoCompletedExercises(user_id, exercise_id, movementpattern_id, today_date);
-                    }
-                    MessageBox.Show("Saved to CompletedExercises Database");
-                }
+                count++;
             }
-            catch (Exception ex)
+
+            if (count == 0)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("No exercise completed yet!");
+            }
+            else if (count > 0)
+            {
+                try
+                {
+                    //initialize connection
+                    using (SqlConnection conn = new SqlConnection(strConn))
+                    {
+                        int user_id = Convert.ToInt32(App.Current.Properties["id"].ToString());
+                        string today_date = DateTime.Today.ToString("yyyy/MM/dd");
+
+                        //sql command
+                        SqlCommand cmd = new SqlCommand("SELECT exercise_id, movementpattern_id FROM ExercisesStopwatch WHERE user_id = '" + user_id + "'", conn);
+                        SqlDataAdapter da = new SqlDataAdapter(cmd);
+                        DataTable dt = new DataTable();
+
+                        //fill datatable
+                        da.Fill(dt);
+
+                        //close connection
+                        conn.Close();
+                        conn.Dispose();
+
+                        foreach (DataRow dr in dt.Rows)
+                        {
+                            int exercise_id = Convert.ToInt32(dr["exercise_id"].ToString());
+                            int movementpattern_id = Convert.ToInt32(dr["movementpattern_id"].ToString());
+
+                            InsertIntoCompletedExercises(user_id, exercise_id, movementpattern_id, today_date);
+                        }
+                        MessageBox.Show("Saved to CompletedExercises Database");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
         }
     }

@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
 
 namespace GETFITT
 {
@@ -100,7 +100,7 @@ namespace GETFITT
 
         //input exercise id -> output exercise name
         private string GetExerciseName(int exercise_id)
-        { 
+        {
             using (SqlConnection conn = new SqlConnection(strConn))
             {
                 //sql command
@@ -122,7 +122,7 @@ namespace GETFITT
 
         //input movement pattern id -> output movement pattern name
         private string GetMovementPatternName(int movementpattern_id)
-        {     
+        {
             using (SqlConnection conn = new SqlConnection(strConn))
             {
                 //sql command
@@ -143,7 +143,7 @@ namespace GETFITT
         }
 
         private void LoadToDoExercises(string date)
-        { 
+        {
             try
             {
                 //initialize connection
@@ -152,7 +152,7 @@ namespace GETFITT
                     int user_id = Convert.ToInt32(App.Current.Properties["id"].ToString());
 
                     //sql command
-                    SqlCommand cmd = new SqlCommand("SELECT id, exercise_id, movementpattern_id FROM TodoExercises WHERE user_id = '"+user_id+"' AND date = '"+ date + "' ", conn);
+                    SqlCommand cmd = new SqlCommand("SELECT id, exercise_id, movementpattern_id FROM TodoExercises WHERE user_id = '" + user_id + "' AND date = '" + date + "' ", conn);
                     SqlDataAdapter da = new SqlDataAdapter(cmd);
                     DataTable dt = new DataTable();
 
@@ -215,7 +215,7 @@ namespace GETFITT
                 //load to do exercises to listview
                 LoadToDoExercises(tomorrow_date);
 
-                if(lsvTodoExercises.Items.Count == 0)
+                if (lsvTodoExercises.Items.Count == 0)
                 {
                     MessageBox.Show("No result found for tomorrow", "Message");
                 }
@@ -275,11 +275,11 @@ namespace GETFITT
             }
 
             //tomorrow
-            if(isToday == false)
+            if (isToday == false)
             {
                 //delete tomorrow exercise
                 DeleteTodo(tomorrow_date);
-                
+
                 //clear listview
                 lsvTodoExercises.Items.Clear();
 
@@ -345,7 +345,7 @@ namespace GETFITT
 
             if (lsvCompletedExercises.Items.Count == 0)
             {
-                MessageBox.Show("No result found","Message");
+                MessageBox.Show("No result found", "Message");
             }
         }
 

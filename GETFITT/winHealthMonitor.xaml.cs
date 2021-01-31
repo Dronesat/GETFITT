@@ -49,7 +49,7 @@ namespace GETFITT
         //Declare variable
         double height;
         double weight;
-        double age;
+        int age;
         double result;
 
         //nhs url
@@ -85,120 +85,153 @@ namespace GETFITT
         }
         private void btnCalculate_Click(object sender, RoutedEventArgs e)
         {
-            try
+            bool isHeight = double.TryParse(txtHeight.Text, out height);
+            bool isWeight = double.TryParse(txtWeight.Text, out weight);
+            bool isAge = int.TryParse(txtAge.Text, out age);
+
+            if (isHeight == true && height > 0 && height <= 250)
             {
-                //assign value from textbox to height and weight
-                height = Double.Parse(txtHeight.Text);
-                weight = Double.Parse(txtWeight.Text);
-                age = Double.Parse(txtAge.Text);
-
-                //declare BMR
-                double BMR = 0;
-                if (radioBtnFemale.IsChecked == true)
+                if (isWeight == true && weight > 0 && weight <= 200)
                 {
-                    //female BMR equation
-                    BMR = (WEIGHTCST * weight) + (HEIGHTCST * height) - (AGECST * age) - WOMENCST;
-                }
-                else if (radioBtnMale.IsChecked == true)
-                {
-                    //men BMR equation
-                    BMR = (WEIGHTCST * weight) + (HEIGHTCST * height) - (AGECST * age) + MENCST;
-                }
+                    if (isAge == true && age > 0 && weight <= 100)
+                    {
+                        //declare BMR
+                        double BMR = 0;
+                        if (radioBtnFemale.IsChecked == true)
+                        {
+                            //female BMR equation
+                            BMR = (WEIGHTCST * weight) + (HEIGHTCST * height) - (AGECST * age) - WOMENCST;
+                        }
+                        else if (radioBtnMale.IsChecked == true)
+                        {
+                            //men BMR equation
+                            BMR = (WEIGHTCST * weight) + (HEIGHTCST * height) - (AGECST * age) + MENCST;
+                        }
+                        else if (radioBtnFemale.IsChecked == false && radioBtnMale.IsChecked == false)
+                        {
+                            MessageBox.Show("Select gender");
+                            return;
+                        }
 
-                //declare switch statement variable = listbox.selectedindex
-                int physicalactivitylevel = lstActivityLevel.SelectedIndex;
+                        //switch statement for user to select thier activity
+                        switch (lstActivityLevel.SelectedIndex)
+                        {
+                            case 0:
+                                calories = BMR * sedentary_light;
+                                break;
+                            case 1:
+                                calories = BMR * active_moderately;
+                                break;
+                            case 2:
+                                calories = BMR * vigorously;
+                                break;
+                            default:
+                                MessageBox.Show("Make sure you select your acitvity");
+                                return;
+                        }
 
-                //switch statement for user to select thier activity
-                switch (physicalactivitylevel)
-                {
-                    case 0:
-                        calories = BMR * sedentary_light;
-                        break;
-                    case 1:
-                        calories = BMR * active_moderately;
-                        break;
-                    case 2:
-                        calories = BMR * vigorously;
-                        break;
-                    default:
-                        MessageBox.Show("Make sure you select your acitvity");
-                        break;
-                }
+                        //display BMR result
+                        lblBMRResult.Content = String.Format("{0:f}", calories);
 
-                //check calories value range (0 - 7100)
-                if (calories <= 0 || calories >= 7100)
-                {
-                    //Show messagebox
-                    MessageBox.Show("Calories value out of range (0-7100). Check your input", "Error");
+                        //BMI equation
+                        result = weight / ((height / 100) * (height / 100));
+
+                        //update Angular Gauge with result
+                        Value = result;
+
+                        //display the result to lblBMIResult
+                        lblBMIResult.Content = String.Format("{0:f}", result);
+
+                        //underweight range ( x <= 18.5 )
+                        if (result <= 18.5)
+                        {
+                            lblType.Content = "Underweight";
+                            lblBMIResult.Foreground = new SolidColorBrush(Colors.Blue);
+                            lblType.Foreground = new SolidColorBrush(Colors.Blue);
+                            string line1 = "Being underweight could be a sign you're not eating enough or you may be ill. ";
+                            string line2 = "If you're underweight, check out the NHS website";
+                            txtBMISugesstion.Text = line1 + line2;
+                            txtBMILink.Text = underweighturl;
+                        }
+                        //normal weight range ( 18.5 < x < 24.9 )
+                        else if (result > 18.5 && result <= 24.9)
+                        {
+                            lblType.Content = "Healthy Weight";
+                            lblBMIResult.Foreground = new SolidColorBrush(Colors.Green);
+                            lblType.Foreground = new SolidColorBrush(Colors.Green);
+                            string line1 = "Keep up the good work! ";
+                            string line2 = "For tips on maintaining a healthy weight, check out the NHS website";
+                            txtBMISugesstion.Text = line1 + line2;
+                            txtBMILink.Text = normalweighturl;
+
+                        }
+                        //overweight range ( 25 <= x <= 29.9 )
+                        else if (result >= 25 && result <= 29.9)
+                        {
+                            lblType.Content = "Overweight";
+                            lblBMIResult.Foreground = new SolidColorBrush(Colors.Orange);
+                            lblType.Foreground = new SolidColorBrush(Colors.Orange);
+                            string line1 = "The best way to lose weight if you're overweight is through a combination of diet and exercise. ";
+                            string line2 = "Check out the NHS website to find out more";
+                            txtBMISugesstion.Text = line1 + line2;
+                            txtBMILink.Text = overweighturl;
+                        }
+                        //obesity range ( x >= 30 )
+                        else if (result >= 30)
+                        {
+                            lblType.Content = "Obesity";
+                            lblBMIResult.Foreground = new SolidColorBrush(Colors.Red);
+                            lblType.Foreground = new SolidColorBrush(Colors.Red);
+                            string line1 = "The best way to lose weight if you're obese is through a combination of diet and exercise, and, in some cases, medicines. ";
+                            string line2 = "Check out the NHS website to find out more";
+                            txtBMISugesstion.Text = line1 + line2;
+                            txtBMILink.Text = obesityurl;
+                        }
+                        MessageBox.Show("Completed!");
+                    }
+                    else
+                    {
+                        //change textbox color to red
+                        txtWeight.Background = new SolidColorBrush(Colors.Red);
+
+                        //error message
+                        MessageBox.Show("Check input age", "Error");
+
+                        //change textbox color to white
+                        txtWeight.Background = new SolidColorBrush(Colors.White);
+
+                        //focus on textbox
+                        txtWeight.Focus();
+                    }
                 }
-                //Display result if there is no error
                 else
                 {
-                    string _calories = String.Format("{0:f}", calories);
-                    lblBMRResult.Content = String.Format("{0:f}", calories);
-                }
+                    //change textbox color to red
+                    txtWeight.Background = new SolidColorBrush(Colors.Red);
 
-                //BMI equation
-                result = weight / ((height / 100) * (height / 100));
+                    //error message
+                    MessageBox.Show("Check input weight", "Error");
 
-                //update Angular Gauge with result
-                Value = result;
+                    //change textbox color to white
+                    txtWeight.Background = new SolidColorBrush(Colors.White);
 
-                //display the result to lblBMIResult
-                lblBMIResult.Content = String.Format("{0:f}", result);
-
-                //underweight range ( x <= 18.5 )
-                if (result <= 18.5)
-                {
-                    lblType.Content = "Underweight";
-                    lblBMIResult.Foreground = new SolidColorBrush(Colors.Blue);
-                    lblType.Foreground = new SolidColorBrush(Colors.Blue);
-                    string line1 = "Being underweight could be a sign you're not eating enough or you may be ill. ";
-                    string line2 = "If you're underweight, check out the NHS website";
-                    txtBMISugesstion.Text = line1 + line2;
-                    txtBMILink.Text = underweighturl;
+                    //focus on textbox
+                    txtWeight.Focus();
                 }
-                //normal weight range ( 18.5 < x < 24.9 )
-                if (result > 18.5 && result <= 24.9)
-                {
-                    lblType.Content = "Healthy Weight";
-                    lblBMIResult.Foreground = new SolidColorBrush(Colors.Green);
-                    lblType.Foreground = new SolidColorBrush(Colors.Green);
-                    string line1 = "Keep up the good work! ";
-                    string line2 = "For tips on maintaining a healthy weight, check out the NHS website";
-                    txtBMISugesstion.Text = line1 + line2;
-                    txtBMILink.Text = normalweighturl;
-
-                }
-                //overweight range ( 25 <= x <= 29.9 )
-                if (result >= 25 && result <= 29.9)
-                {
-                    lblType.Content = "Overweight";
-                    lblBMIResult.Foreground = new SolidColorBrush(Colors.Orange);
-                    lblType.Foreground = new SolidColorBrush(Colors.Orange);
-                    string line1 = "The best way to lose weight if you're overweight is through a combination of diet and exercise. ";
-                    string line2 = "Check out the NHS website to find out more";
-                    txtBMISugesstion.Text = line1 + line2;
-                    txtBMILink.Text = overweighturl;
-                }
-                //obesity range ( x >= 30 )
-                if (result >= 30)
-                {
-                    lblType.Content = "Obesity";
-                    lblBMIResult.Foreground = new SolidColorBrush(Colors.Red);
-                    lblType.Foreground = new SolidColorBrush(Colors.Red);
-                    string line1 = "The best way to lose weight if you're obese is through a combination of diet and exercise, and, in some cases, medicines. ";
-                    string line2 = "Check out the NHS website to find out more";
-                    txtBMISugesstion.Text = line1 + line2;
-                    txtBMILink.Text = obesityurl;
-                }
-                MessageBox.Show("Completed!");
             }
-            //Catch any errors
-            catch (Exception ex)
+            else
             {
-                //Show messagebox
-                MessageBox.Show("Check your input! ( " + ex.Message + " )", "Error");
+                //change textbox color to red
+                txtHeight.Background = new SolidColorBrush(Colors.Red);
+
+                //Error message
+                MessageBox.Show("Check input height", "Error");
+
+                //change textbox color to white
+                txtHeight.Background = new SolidColorBrush(Colors.White);
+
+                //focus on textbox
+                txtHeight.Focus();
             }
         }
 
@@ -255,6 +288,18 @@ namespace GETFITT
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void btnClear_Click(object sender, RoutedEventArgs e)
+        {
+            //close this window
+            this.Close();
+
+            //open this window
+            winHealthMonitor winhealthmonitor = new winHealthMonitor();
+            winhealthmonitor.Top = 30;
+            winhealthmonitor.Left = 30;
+            winhealthmonitor.Show();
         }
     }
 }

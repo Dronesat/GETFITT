@@ -17,9 +17,9 @@
             <Label Content="Username" Height="22" Margin="0,0,-0.2,0" FontSize="10"/>
             <TextBox x:Name="txtUsername" VerticalContentAlignment="Center" Height="35" TextWrapping="Wrap" Margin="0" FontSize="16" Text="hieu"/>
             <Label Content="Password" Height="22" Margin="0,0,-0.2,0" FontSize="10"/>
-            <TextBox x:Name="txtPassword" VerticalContentAlignment="Center" Height="35" TextWrapping="Wrap" FontSize="16" Text="le"/>
+            <PasswordBox x:Name="txtPassword" VerticalContentAlignment="Center" Height="35"  FontSize="16" />
             <Label Content="" Height="15"/>
-            <Button x:Name="btnLogin" Background="{x:Null}" BorderThickness="0" Content="Log In" Height="46" Margin="0,0,-0.2,0" FontSize="26" Click="btnLogin_Click" Foreground="#FF362C51" FontFamily="Arial Rounded MT Bold">
+            <Button x:Name="btnLogin" Background="{x:Null}" BorderThickness="0" Content="Log In" Height="33" Margin="0,0,-0.2,0" FontSize="26" Click="btnLogin_Click" Foreground="#FF362C51" FontFamily="Arial Rounded MT Bold">
                 <Button.Style>
                     <Style TargetType="Button">
                         <Style.Triggers>

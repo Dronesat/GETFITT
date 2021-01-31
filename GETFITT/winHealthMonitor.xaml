@@ -39,27 +39,81 @@
                         <RadioButton x:Name="radioBtnMale" FontSize="20" Content="Male"/>
                         <RadioButton x:Name="radioBtnFemale" FontSize="20" Content="Female"/>
                     </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="79,254,57,79">
+                        <Button x:Name="btnCalculate" Content="Calculate BMI &amp; BMR" Background="{x:Null}" BorderThickness="0" Margin="0,0,0,0.4" Width="300" Click="btnCalculate_Click" FontSize="20" FontFamily="Arial Rounded MT Bold" >
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Style.Triggers>
+                                        <EventTrigger RoutedEvent="MouseEnter">
+                                            <EventTrigger.Actions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation Duration="0:0:0.300" Storyboard.TargetProperty="FontSize" To="28" />
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </EventTrigger.Actions>
+                                        </EventTrigger>
+                                        <EventTrigger RoutedEvent="MouseLeave">
+                                            <EventTrigger.Actions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation Duration="0:0:0.400" Storyboard.TargetProperty="FontSize" To="20" />
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </EventTrigger.Actions>
+                                        </EventTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+                        <Label Margin="0,0,0,0.4" Width="44"></Label>
+                        <Button x:Name="btnSave" Content="Save to Database" Background="{x:Null}" BorderThickness="0" Margin="0,0,0,0.4" Width="300" FontSize="20" Click="btnSave_Click" FontFamily="Arial Rounded MT Bold">
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Style.Triggers>
+                                        <EventTrigger RoutedEvent="MouseEnter">
+                                            <EventTrigger.Actions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation Duration="0:0:0.300" Storyboard.TargetProperty="FontSize" To="28" />
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </EventTrigger.Actions>
+                                        </EventTrigger>
+                                        <EventTrigger RoutedEvent="MouseLeave">
+                                            <EventTrigger.Actions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation Duration="0:0:0.400" Storyboard.TargetProperty="FontSize" To="20" />
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </EventTrigger.Actions>
+                                        </EventTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+                    </StackPanel>
                     <Label Content="Gender" FontSize="22" Margin="28,167,668,164.4"/>
                     <Label Content="Activity Level:" HorizontalAlignment="Left" Margin="418,15,0,0" VerticalAlignment="Top"/>
-                    <Button x:Name="btnSave" Content="Save to Database"  Margin="418,286,23,0" VerticalAlignment="Top" Width="347" Height="52" FontSize="20" Click="btnSave_Click"/>
-                    <Button x:Name="btnCalculate" Content="Calculate BMI &amp; BMR" Margin="28,286,413,46" FontSize="20" Click="btnCalculate_Click"/>
-                    <Button x:Name="btnStatsClose" Content="Close" Margin="678,1,10,342" Click="btnClose_Click"/>
+                    <Button x:Name="btnStatsClose" Content="Close" Background="{x:Null}"  Margin="678,1,10,342" Click="btnClose_Click" FontSize="20" FontWeight="Bold"/>
+                    <Button x:Name="btnClear" Content="Clear" Background="{x:Null}"  FontSize="20" HorizontalAlignment="Left" Margin="488,177,0,0" VerticalAlignment="Top" Width="162" Height="43" Click="btnClear_Click" FontWeight="Bold" FontFamily="Arial Rounded MT Bold"/>
                 </Grid>
             </TabItem>
             <TabItem Header="BMR" Height="30" Width="100" FontSize="16">
                 <Grid>
                     <Label Content="Basal Metabolic Rate" HorizontalAlignment="Left" Margin="228,1,0,0" VerticalAlignment="Top" Height="53" Width="320" FontSize="30" FontFamily="Arial Rounded MT Bold"/>
-                    <Button x:Name="btnBMRInfo" Content="What's this?" HorizontalAlignment="Left" Margin="228,53,0,0" VerticalAlignment="Top" Width="320" Height="40" FontSize="26" Click="btnBMRInfo_Click"/>
+                    <Button x:Name="btnBMRInfo" Content="What's this?" Background="{x:Null}" HorizontalAlignment="Left" Margin="228,53,0,0" VerticalAlignment="Top" Width="320" Height="40" FontSize="26" Click="btnBMRInfo_Click" FontWeight="Bold"/>
                     <Label Content="Result" HorizontalAlignment="Left" Margin="38,99,0,0" VerticalAlignment="Top" Height="53" Width="114" FontSize="26"/>
                     <Label x:Name="lblBMRResult" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Height="53" Width="149" FontSize="26" Margin="38,134,0,0" BorderBrush="Black" BorderThickness="1"/>
                     <Label Content="Calories/Day" HorizontalAlignment="Left" Margin="192,134,0,0" VerticalAlignment="Top" Height="53" Width="138" FontSize="22" VerticalContentAlignment="Center"/>
-                    <Button x:Name="btnBMRClose" Content="Close" Margin="678,1,10,342" Click="btnClose_Click"/>
+                    <Button x:Name="btnBMRClose" Content="Close" Background="{x:Null}"  Margin="678,1,10,342" Click="btnClose_Click" FontWeight="Bold" FontSize="20"/>
                 </Grid>
             </TabItem>
             <TabItem Header="BMI" Height="30" Width="100" FontSize="16">
                 <Grid>
                     <Label Content="Body Mass Index" HorizontalAlignment="Left" Margin="270,1,0,0" VerticalAlignment="Top" Height="53" Width="257" FontSize="30" FontFamily="Arial Rounded MT Bold"/>
-                    <Button x:Name="btnBMIInfo" Content="What's this?" HorizontalAlignment="Left" Margin="270,53,0,0" VerticalAlignment="Top" Width="257" Height="40" FontSize="26" Click="btnBMIInfo_Click"/>
+                    <Button x:Name="btnBMIInfo" Content="What's this?" Background="{x:Null}" HorizontalAlignment="Left" Margin="270,53,0,0" VerticalAlignment="Top" Width="257" Height="40" FontSize="26" Click="btnBMIInfo_Click" FontWeight="Bold"/>
                     <Label Content="Result:" HorizontalAlignment="Left" Margin="30,105,0,0" VerticalAlignment="Top" Height="53" Width="82" FontSize="26"/>
                     <Label x:Name="lblBMIResult" Content="" HorizontalAlignment="Left" Height="53" Margin="117,105,0,0" VerticalAlignment="Top" Width="134" BorderBrush="#FF080002" BorderThickness="1,1,1,1" FontSize="26"/>
                     <Label x:Name="lblType" HorizontalContentAlignment="Center" Content="" HorizontalAlignment="Left" Height="53" Margin="471,303,0,0" VerticalAlignment="Top" Width="249" FontSize="26"/>
@@ -80,10 +134,9 @@
                             </lvc:AngularGauge.Sections>
                         </lvc:AngularGauge>
                     </Grid>
-                    <Button x:Name="btnBMIClose" Content="Close" Margin="678,1,10,342" Click="btnClose_Click"/>
+                    <Button x:Name="btnBMIClose" Content="Close" Background="{x:Null}" Margin="678,1,10,342" Click="btnClose_Click" FontSize="20" FontWeight="Bold"/>
                 </Grid>
             </TabItem>
-
         </TabControl>
     </Grid>
 </Window>

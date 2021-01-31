@@ -39,10 +39,5 @@ namespace GETFITT
             winhomeexercise.Left = 30;
             winhomeexercise.Show();
         }
-        
-        private void btnTimer_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Sorry this function still in development","Error");
-        }
     }
 }

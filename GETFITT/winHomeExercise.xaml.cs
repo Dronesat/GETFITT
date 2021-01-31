@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Windows;
-using System.Windows.Media.Imaging;
 using System.Configuration;
-using System.Data;
 using System.Data.SqlClient;
-using System.Windows.Media;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace GETFITT
 {
@@ -124,12 +123,12 @@ namespace GETFITT
                             string user_id = App.Current.Properties["id"].ToString();
                             int exercise_id = currentExercise.strExercise_id;
                             int movementpattern_id = currentExercise.strMovementPattern_id;
-                            
+
                             //open connection
                             conn.Open();
 
                             //sql command
-                            SqlCommand cmd = new SqlCommand("INSERT INTO ExercisesStopwatch VALUES ('" + user_id + "' , '"+ exercise_id + "' , '" + movementpattern_id + "' , '" + time + "')", conn);
+                            SqlCommand cmd = new SqlCommand("INSERT INTO ExercisesStopwatch VALUES ('" + user_id + "' , '" + exercise_id + "' , '" + movementpattern_id + "' , '" + time + "')", conn);
 
                             //excute cmd, no result return
                             cmd.ExecuteNonQuery();
