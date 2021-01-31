@@ -6,12 +6,14 @@
              xmlns:local="clr-namespace:GETFITT"
              mc:Ignorable="d" 
              d:DesignHeight="135" d:DesignWidth="340" BorderBrush="Black">
+    <UserControl.Resources>
+        
+    </UserControl.Resources>
     <Grid Margin="10,5,10,0">
         <Button x:Name="btnView" BorderBrush="Transparent" Foreground="White" Click="btnView_Click" Background="White"></Button>
         <Label x:Name="lblExerciseName" Content="Label" HorizontalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top" Width="320" FontFamily="Arial Rounded MT Bold" FontSize="14"/>
         <Label x:Name="lblMovementPattern" Content="Label" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,26,0,0" VerticalAlignment="Top" Width="300" FontSize="10"/>
         <Image x:Name="imgImage" HorizontalAlignment="Left" Height="60" Margin="35,60,0,0" VerticalAlignment="Top" Width="113"/>
-        <!--<Button x:Name="btnView" Content="View" HorizontalAlignment="Left" Margin="203,68,0,0" VerticalAlignment="Top" Width="117" Click="btnView_Click" Height="26"/>-->
-        <Button x:Name="btnTimer" Content="Add to Timer" HorizontalAlignment="Left" Margin="178,83,0,0" VerticalAlignment="Top" Width="117" Height="26" Click="btnTimer_Click" Background="White"/>
     </Grid>
+    
 </UserControl>

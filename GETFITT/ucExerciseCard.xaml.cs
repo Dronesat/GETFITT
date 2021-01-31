@@ -16,6 +16,7 @@ namespace GETFITT
 
         public ucExerciseCard(claExercise newExercise)
         {
+
             InitializeComponent();
 
             //save the pass data on the card

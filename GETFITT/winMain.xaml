@@ -10,15 +10,145 @@
         <ImageBrush ImageSource="Resources/Background/3297251.jpg"></ImageBrush>
     </Window.Background>
     <Grid>
-        <Button x:Name="btnHomeWorkout" Background="{x:Null}" BorderThickness="0" Content="HOME WORKOUT" HorizontalAlignment="Left" Height="61" Margin="439,103,0,0" VerticalAlignment="Top" Width="294" FontSize="28" FontFamily="Arial Rounded MT Bold" Foreground="#FF740808" Click="btnHomeWorkout_Click"/>
+        <Button x:Name="btnHomeWorkout" Background="{x:Null}" BorderThickness="0" Content="HOME WORKOUT"  Height="61" Margin="439,103,60.6,0" VerticalAlignment="Top" FontSize="28" FontFamily="Arial Rounded MT Bold" Foreground="#FF740808" Click="btnHomeWorkout_Click">
+            <Button.ToolTip>
+                <StackPanel>
+                    <TextBlock FontWeight="Bold" FontSize="12" Margin="0,0,0,5">
+                        A guide to constructing your own muscle building home workout
+                    </TextBlock>
+                </StackPanel>
+            </Button.ToolTip>
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Style.Triggers>
+                        <EventTrigger RoutedEvent="MouseEnter">
+                            <EventTrigger.Actions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0:0:0.300" Storyboard.TargetProperty="FontSize" To="32" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger.Actions>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="MouseLeave">
+                            <EventTrigger.Actions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0:0:0.400" Storyboard.TargetProperty="FontSize" To="28" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger.Actions>
+                        </EventTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+        <Button x:Name="btnWorkoutTracker" Content="Workout Planner" Foreground="#FF4E3914" Background="{x:Null}" BorderThickness="0" HorizontalAlignment="Left" Margin="439,164,0,0" VerticalAlignment="Top" Width="294" Height="47" FontSize="28" FontFamily="Dubai Medium" Click="btnWorkoutTracker_Click">
+            <Button.ToolTip>
+                <StackPanel>
+                    <TextBlock FontWeight="Bold" FontSize="12" Margin="0,0,0,5">
+                        A tool to help you track your previous workout progress and make a plan for tomorrow
+                    </TextBlock>
+                </StackPanel>
+            </Button.ToolTip>
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Style.Triggers>
+                        <EventTrigger RoutedEvent="MouseEnter">
+                            <EventTrigger.Actions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0:0:0.300" Storyboard.TargetProperty="FontSize" To="32" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger.Actions>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="MouseLeave">
+                            <EventTrigger.Actions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0:0:0.400" Storyboard.TargetProperty="FontSize" To="28" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger.Actions>
+                        </EventTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+        <Button x:Name="btnHealthMonitor" Background="{x:Null}" BorderThickness="0" Content="Health Monitor" HorizontalAlignment="Left" Margin="439,257,0,0" VerticalAlignment="Top" Width="294" Height="47" Click="btnHealthMonitor_Click" FontSize="28" FontFamily="Arial Rounded MT Bold" Foreground="#FFD41C1C">
+            <Button.ToolTip>
+                <StackPanel>
+                    <TextBlock FontWeight="Bold" FontSize="12" Margin="0,0,0,5">
+                        Get to known your current health status by using BMI and BMR index
+                    </TextBlock>
+                </StackPanel>
+            </Button.ToolTip>
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Style.Triggers>
+                        <EventTrigger RoutedEvent="MouseEnter">
+                            <EventTrigger.Actions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0:0:0.300" Storyboard.TargetProperty="FontSize" To="32" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger.Actions>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="MouseLeave">
+                            <EventTrigger.Actions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0:0:0.400" Storyboard.TargetProperty="FontSize" To="28" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger.Actions>
+                        </EventTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+        <Button x:Name="btnTracker" Background="{x:Null}" BorderThickness="0" Content="Tracker" HorizontalAlignment="Left" Margin="439,304,0,0" VerticalAlignment="Top" Width="294" Height="47" FontSize="28" Click="btnTracker_Click" FontFamily="Dubai Medium" Foreground="#FF81CD59">
+            <Button.ToolTip>
+                <StackPanel>
+                    <TextBlock FontWeight="Bold" FontSize="12" Margin="0,0,0,5">
+                        Tracking your BMI and BMR index over a period of time
+                        <LineBreak></LineBreak>
+                        help you maintain a healthy body.
+                    </TextBlock>
+                </StackPanel>
+            </Button.ToolTip>
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Style.Triggers>
+                        <EventTrigger RoutedEvent="MouseEnter">
+                            <EventTrigger.Actions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0:0:0.300" Storyboard.TargetProperty="FontSize" To="32" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger.Actions>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="MouseLeave">
+                            <EventTrigger.Actions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0:0:0.400" Storyboard.TargetProperty="FontSize" To="28" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger.Actions>
+                        </EventTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
         <Label x:Name="lblToday" Content="Today is: 01/01/01" HorizontalAlignment="Left" Height="56" Margin="0,103,0,0" VerticalAlignment="Top" Width="224" FontSize="20" BorderThickness="12,12,12,12" FontFamily="Lucida Sans"/>
         <Button x:Name="btnExit" Background="{x:Null}"  Content="Exit" HorizontalAlignment="Left" Height="31" Margin="691,10,0,0" VerticalAlignment="Top" Width="93" FontSize="18" Click="btnExit_Click"/>
         <Button x:Name="btnTipsUpdate" Background="{x:Null}" BorderThickness="0" Content="Tips and Update" HorizontalAlignment="Left" Margin="439,386,0,0" VerticalAlignment="Top" Width="294" Height="34" FontSize="18" Click="btnTipsUpdate_Click" Foreground="Black"/>
-        <Button x:Name="btnTracker" Background="{x:Null}" BorderThickness="0" Content="Tracker" HorizontalAlignment="Left" Margin="439,304,0,0" VerticalAlignment="Top" Width="294" Height="47" FontSize="28" Click="btnTracker_Click" FontFamily="Dubai Medium" Foreground="#FF81CD59"/>
         <Label x:Name="lblName" HorizontalContentAlignment="Left" Content="Welcome back" HorizontalAlignment="Left" Margin="10,44,0,0" VerticalAlignment="Top" Height="73" Width="370" FontSize="46" FontFamily="Brush Script MT"/>
-        <Button x:Name="btnHealthMonitor" Background="{x:Null}" BorderThickness="0" Content="Health Monitor" HorizontalAlignment="Left" Margin="439,257,0,0" VerticalAlignment="Top" Width="294" Height="47" Click="btnHealthMonitor_Click" FontSize="28" FontFamily="Arial Rounded MT Bold" Foreground="#FFD41C1C"/>
         <Button x:Name="btnSwitchAcc" Background="{x:Null}"  Content="Switch Account" HorizontalAlignment="Left" Margin="550,10,0,0" VerticalAlignment="Top" Width="136" Height="31" FontSize="18" Click="btnSwitchAcc_Click"/>
         <Label x:Name="lblWelcome" Content="Good morning" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="370" Height="54" FontSize="24" FontFamily="Lucida Sans"/>
-        <Button x:Name="btnWorkoutTracker" Content="Workout Planner" Foreground="#FF4E3914" Background="{x:Null}" BorderThickness="0" HorizontalAlignment="Left" Margin="439,164,0,0" VerticalAlignment="Top" Width="294" Height="47" FontSize="28" FontFamily="Dubai Medium" Click="btnWorkoutTracker_Click"/>
     </Grid>
 </Window>

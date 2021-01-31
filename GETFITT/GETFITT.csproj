@@ -54,7 +54,10 @@
     </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\GETFITT.ico</ApplicationIcon>
+    <ApplicationIcon>GETFITT.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="LiveCharts, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
@@ -347,9 +350,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\GETFITT.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="dbGETFITT.mdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -357,6 +357,8 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <DependentUpon>dbGETFITT.mdf</DependentUpon>
     </Content>
+    <Resource Include="GETFITT.ico" />
+    <Resource Include="Resources\GETFITT.ico" />
     <Resource Include="Resources\Background\3297251.jpg" />
     <Resource Include="Resources\Background\winCreateAccount.jpg" />
     <Resource Include="Resources\Background\winLogin.jpg" />

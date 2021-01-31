@@ -19,9 +19,84 @@
             <Label Content="Password" Height="22" Margin="0,0,-0.2,0" FontSize="10"/>
             <TextBox x:Name="txtPassword" VerticalContentAlignment="Center" Height="35" TextWrapping="Wrap" FontSize="16" Text="le"/>
             <Label Content="" Height="15"/>
-            <Button x:Name="btnLogin" Background="{x:Null}" BorderThickness="0" Content="Log In" Height="46" Margin="0,0,-0.2,0" FontSize="26" Click="btnLogin_Click" Foreground="#FF362C51" FontFamily="Arial Rounded MT Bold"/>
+            <Button x:Name="btnLogin" Background="{x:Null}" BorderThickness="0" Content="Log In" Height="46" Margin="0,0,-0.2,0" FontSize="26" Click="btnLogin_Click" Foreground="#FF362C51" FontFamily="Arial Rounded MT Bold">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Style.Triggers>
+                            <EventTrigger RoutedEvent="MouseEnter">
+                                <EventTrigger.Actions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0:0:0.300" Storyboard.TargetProperty="FontSize" To="30" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger.Actions>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="MouseLeave">
+                                <EventTrigger.Actions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0:0:0.400" Storyboard.TargetProperty="FontSize" To="26" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger.Actions>
+                            </EventTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
         </StackPanel>
-        <Button x:Name="btnCreateAcc" Background="{x:Null}" BorderThickness="0" Content="Create New Account" HorizontalAlignment="Left" Margin="117,379,0,0" VerticalAlignment="Top" Width="215" Height="40" FontSize="19" Click="btnCreateAcc_Click" FontFamily="Arial Rounded MT Bold"/>
-        <Button x:Name="btnExit" Background="{x:Null}" BorderThickness="0" Content="Exit" HorizontalAlignment="Left" Margin="135,424,0,0" VerticalAlignment="Top" Width="175" Height="36" FontSize="20" Click="btnExit_Click" FontFamily="Arial Rounded MT Bold"/>
+        <Button x:Name="btnCreateAcc" Background="{x:Null}" BorderThickness="0" Content="Create New Account" HorizontalAlignment="Left" Margin="57,379,0,0" VerticalAlignment="Top" Width="325" Height="40" FontSize="19" Click="btnCreateAcc_Click" FontFamily="Arial Rounded MT Bold">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Style.Triggers>
+                        <EventTrigger RoutedEvent="MouseEnter">
+                            <EventTrigger.Actions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0:0:0.300" Storyboard.TargetProperty="FontSize" To="22" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger.Actions>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="MouseLeave">
+                            <EventTrigger.Actions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0:0:0.400" Storyboard.TargetProperty="FontSize" To="19" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger.Actions>
+                        </EventTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+        <Button x:Name="btnExit" Background="{x:Null}" BorderThickness="0" Content="Exit" HorizontalAlignment="Left" Margin="57,424,0,0" VerticalAlignment="Top" Width="325" Height="36" FontSize="20" Click="btnExit_Click" FontFamily="Arial Rounded MT Bold">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Style.Triggers>
+                        <EventTrigger RoutedEvent="MouseEnter">
+                            <EventTrigger.Actions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0:0:0.300" Storyboard.TargetProperty="FontSize" To="22" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger.Actions>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="MouseLeave">
+                            <EventTrigger.Actions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0:0:0.400" Storyboard.TargetProperty="FontSize" To="19" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger.Actions>
+                        </EventTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
     </Grid>
 </Window>

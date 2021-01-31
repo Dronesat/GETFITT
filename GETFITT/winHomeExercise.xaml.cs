@@ -4,6 +4,8 @@ using System.Windows.Media.Imaging;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Windows.Media;
+using System.Threading.Tasks;
 
 namespace GETFITT
 {
@@ -100,6 +102,89 @@ namespace GETFITT
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        async Task PutTaskDelay()
+        {
+            await Task.Delay(1000);
+        }
+
+        private async void btnAddToStopwatch_Click(object sender, RoutedEventArgs e)
+        {
+            bool isTime = int.TryParse(txtExerciseTime.Text, out int time);
+            if (isTime == true)
+            {
+                if (time > 0 && time < 100)
+                {
+                    try
+                    {
+                        //initialise connection
+                        using (SqlConnection conn = new SqlConnection(strConn))
+                        {
+                            string user_id = App.Current.Properties["id"].ToString();
+                            int exercise_id = currentExercise.strExercise_id;
+                            int movementpattern_id = currentExercise.strMovementPattern_id;
+                            
+                            //open connection
+                            conn.Open();
+
+                            //sql command
+                            SqlCommand cmd = new SqlCommand("INSERT INTO ExercisesStopwatch VALUES ('" + user_id + "' , '"+ exercise_id + "' , '" + movementpattern_id + "' , '" + time + "')", conn);
+
+                            //excute cmd, no result return
+                            cmd.ExecuteNonQuery();
+
+                            //close and dispose connection
+                            conn.Close();
+                            conn.Dispose();
+
+                            txtInstruction.FontSize = 24;
+                            txtInstruction.Text = "Press Load to update exercises list";
+                            txtExerciseTime.Text = "Saved";
+
+                            await PutTaskDelay();
+
+                            this.Close();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+                else
+                {
+                    //change textbox color to red
+                    txtExerciseTime.Background = new SolidColorBrush(Colors.Red);
+
+                    //error messagebox
+                    MessageBox.Show("Check Time");
+
+                    //put empty string in txtTime
+                    txtExerciseTime.Text = "";
+
+                    //change textbox color to white
+                    txtExerciseTime.Background = new SolidColorBrush(Colors.White);
+                    //focus on txtTime
+                    txtExerciseTime.Focus();
+                }
+            }
+            else
+            {
+                //change textbox color to red
+                txtExerciseTime.Background = new SolidColorBrush(Colors.Red);
+
+                //error messagebox
+                MessageBox.Show("Check Time");
+
+                //put empty string in txtTime
+                txtExerciseTime.Text = "";
+
+                //change textbox color to white
+                txtExerciseTime.Background = new SolidColorBrush(Colors.White);
+                //focus on txtTime
+                txtExerciseTime.Focus();
+            }
         }
     }
 }

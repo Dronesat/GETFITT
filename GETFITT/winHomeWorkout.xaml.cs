@@ -29,6 +29,9 @@ namespace GETFITT
         string[] arrDay;
         int[] arrNoExercisesPerDay;
 
+        //declare rest time
+        int resttime;
+
         //Graph
         public SeriesCollection SeriesCollection { get; set; }
         public string[] Labels { get; set; }
@@ -46,6 +49,8 @@ namespace GETFITT
 
             //Load graph
             ExercisesGraph();
+
+            LoadExercisesStopwatch();
         }
 
         private void ExercisesTracking()
@@ -273,7 +278,8 @@ namespace GETFITT
             if (txtExercise.Text != "")
             {
                 //check if time is exist or not
-                if (IntegerExtensions.ParseNullableInt(txtTime.Text) >= 0)
+                bool time = int.TryParse(txtTime.Text,out int n);
+                if (time == true)
                 {
                     //add input from textbox to listbox
                     lstExercise.Items.Add(txtExercise.Text);
@@ -324,12 +330,13 @@ namespace GETFITT
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
             //check if resttime exist or not 
-            if (IntegerExtensions.ParseNullableInt(txtRestTime.Text) > 0)
+            bool isRestTime = int.TryParse(txtRestTime.Text, out resttime);
+            if (isRestTime == true)
             {
                 //check item in listbox
                 if (lstTime.Items.Count > 0)
                 {
-                    MessageBox.Show("Stopwatch starts Now");
+                    MessageBox.Show("You can start stopwatch now!");
                 }
                 //no item
                 else
@@ -366,62 +373,98 @@ namespace GETFITT
 
         private void btnClear_Click(object sender, RoutedEventArgs e)
         {
-            //clear listbox and textbox
-            lstExercise.Items.Clear();
-            lstTime.Items.Clear();
-            txtExercise.Text = "";
-            txtRestTime.Text = "";
-            txtTime.Text = "";
+            try
+            {
+                //// Delete Exercises Stopwatch from database
+                int user_id = Convert.ToInt32(App.Current.Properties["id"].ToString());
+
+                SqlConnection conn = new SqlConnection(strConn);
+                SqlCommand cmd = new SqlCommand("DELETE FROM ExercisesStopwatch WHERE user_id = '" + user_id + "'", conn);
+
+                //open connection
+                conn.Open();
+
+                //execute command
+                cmd.ExecuteNonQuery();
+
+                //close connection
+                conn.Close();
+                conn.Dispose();
+
+                //clear listbox and textbox
+                lstExercise.Items.Clear();
+                lstTime.Items.Clear();
+                txtExercise.Text = "";
+                txtRestTime.Text = "";
+                txtTime.Text = "";
+
+                LoadExercisesStopwatch();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
+
         async Task PutTaskDelay()
         {
             await Task.Delay(1000);
         }
+
         private async void btnStart_Click(object sender, RoutedEventArgs e)
         {
-            //loop through each exercises
-            for (int i = 0; i < lstExercise.Items.Count; i++)
+            //check if user entered rest time
+            bool isRestTime = int.TryParse(txtRestTime.Text, out int n);
+            if (isRestTime == true)
             {
-                lblExercise.Content = lstExercise.Items[i].ToString();
-                int time = int.Parse(lstTime.Items[i].ToString());
-
-                //loop time
-                for (int j = time; j >= 0; j--)
+                //loop through each exercises
+                for (int i = 0; i < lstExercise.Items.Count; i++)
                 {
-                    //Declare TimeSpan
-                    TimeSpan timespan = new TimeSpan(0, 0, j);
+                    lblExercise.Content = lstExercise.Items[i].ToString();
+                    int time = int.Parse(lstTime.Items[i].ToString());
 
-                    //update label stopwatch
-                    lblStopwatch.Content = timespan.ToString(@"mm\:ss");
-                    await PutTaskDelay();
-                    System.Windows.Forms.Application.DoEvents();
-                    if (j < 3)
+                    //loop time
+                    for (int j = time; j >= 0; j--)
                     {
-                        SystemSounds.Beep.Play();
+                        //Declare TimeSpan
+                        TimeSpan timespan = new TimeSpan(0, 0, j);
+
+                        //update label stopwatch
+                        lblStopwatch.Content = timespan.ToString(@"mm\:ss");
+                        await PutTaskDelay();
+                        System.Windows.Forms.Application.DoEvents();
+                        if (j < 3)
+                        {
+                            SystemSounds.Beep.Play();
+                        }
+                    }
+
+                    //loop rest time
+                    for (int k = resttime; k >= 0; k--)
+                    {
+                        //declare TimeSpan
+                        TimeSpan timespan1 = new TimeSpan(0, 0, k);
+
+                        //display Rest 
+                        lblExercise.Content = "Rest";
+
+                        //update label stopwatch
+                        lblStopwatch.Content = timespan1.ToString(@"mm\:ss");
+                        await PutTaskDelay();
+                        System.Windows.Forms.Application.DoEvents();
+                        if (k < 3)
+                        {
+                            SystemSounds.Beep.Play();
+                        }
                     }
                 }
-
-                int resttime = IntegerExtensions.ParseInt(txtRestTime.Text);
-                for (int k = resttime; k >= 0; k--)
-                {
-                    //declare TimeSpan
-                    TimeSpan timespan1 = new TimeSpan(0, 0, k);
-
-                    //display Rest 
-                    lblExercise.Content = "Rest";
-
-                    //update label stopwatch
-                    lblStopwatch.Content = timespan1.ToString(@"mm\:ss");
-                    await PutTaskDelay();
-                    System.Windows.Forms.Application.DoEvents();
-                    if (k < 3)
-                    {
-                        SystemSounds.Beep.Play();
-                    }
-                }
+                //update label Exercise to Finished
+                lblExercise.Content = "Finished";
             }
-            //update label Exercise to Finished
-            lblExercise.Content = "Finished";
+            else
+            {
+                MessageBox.Show("Please submit rest time","Error");
+            }
         }
 
         private void btnWorkoutPlanner_Click(object sender, RoutedEventArgs e)
@@ -431,6 +474,140 @@ namespace GETFITT
             winworkoutplanner.Top = 10;
             winworkoutplanner.Left = 30;
             winworkoutplanner.Show();
+        }
+
+        //input exercise id -> output exercise name
+        private string GetExerciseName(int exercise_id)
+        {
+            using (SqlConnection conn = new SqlConnection(strConn))
+            {
+                //sql command
+                SqlCommand cmd = new SqlCommand("SELECT exercise FROM Exercises WHERE id = '" + exercise_id + "'", conn);
+
+                //open connection
+                conn.Open();
+
+                //execute command
+                string exercise_name = (string)cmd.ExecuteScalar();
+
+                //close connection
+                conn.Close();
+                conn.Dispose();
+
+                return exercise_name;
+            }
+        }
+
+        private void LoadExercisesStopwatch()
+        {
+            try
+            {
+                //initialize connection
+                using (SqlConnection conn = new SqlConnection(strConn))
+                {
+                    int user_id = Convert.ToInt32(App.Current.Properties["id"].ToString());
+
+                    //sql command
+                    SqlCommand cmd = new SqlCommand("SELECT exercise_id, time FROM ExercisesStopwatch WHERE user_id = '" + user_id + "'", conn);
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+
+                    //fill datatable
+                    da.Fill(dt);
+
+                    //close connection
+                    conn.Close();
+                    conn.Dispose();
+
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        int exercise_id = Convert.ToInt32(dr["exercise_id"].ToString());
+                        int time = Convert.ToInt32(dr["time"].ToString());
+
+                        //get exercise name
+                        string exercise = GetExerciseName(exercise_id);
+
+                        //add item to listbox
+                        lstExercise.Items.Add(exercise);
+                        lstTime.Items.Add(time);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void btnLoad_Click(object sender, RoutedEventArgs e)
+        {
+            //clear exercises and time list
+            lstExercise.Items.Clear();
+            lstTime.Items.Clear();
+
+            //load exercise to list
+            LoadExercisesStopwatch();
+        }
+
+        private void InsertIntoCompletedExercises(int user_id, int exercise_id, int movementpattern_id, string date)
+        {
+            try
+            {
+                //initialise connection
+                using (SqlConnection conn = new SqlConnection(strConn))
+                {
+                    //sql command
+                    SqlCommand cmd = new SqlCommand("INSERT INTO CompletedExercises VALUES ('" + user_id + "','" + exercise_id + "','" + movementpattern_id + "','" + date + "')", conn);
+
+                    //open connection
+                    conn.Open();
+
+                    //excute cmd, no result return
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void btnSaveCompletedExercises_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                //initialize connection
+                using (SqlConnection conn = new SqlConnection(strConn))
+                {
+                    int user_id = Convert.ToInt32(App.Current.Properties["id"].ToString());
+                    string today_date = DateTime.Today.ToString("yyyy/MM/dd");
+
+                    //sql command
+                    SqlCommand cmd = new SqlCommand("SELECT exercise_id, movementpattern_id FROM ExercisesStopwatch WHERE user_id = '" + user_id + "'", conn);
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+
+                    //fill datatable
+                    da.Fill(dt);
+
+                    //close connection
+                    conn.Close();
+                    conn.Dispose();
+
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        int exercise_id = Convert.ToInt32(dr["exercise_id"].ToString());
+                        int movementpattern_id = Convert.ToInt32(dr["movementpattern_id"].ToString());
+
+                        InsertIntoCompletedExercises(user_id, exercise_id, movementpattern_id, today_date);
+                    }
+                    MessageBox.Show("Saved to CompletedExercises Database");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }
