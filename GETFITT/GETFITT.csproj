@@ -154,11 +154,11 @@
     <Compile Include="winMain.xaml.cs">
       <DependentUpon>winMain.xaml</DependentUpon>
     </Compile>
-    <Compile Include="winTipsUpdate.xaml.cs">
-      <DependentUpon>winTipsUpdate.xaml</DependentUpon>
-    </Compile>
     <Compile Include="winTrackerGraph.xaml.cs">
       <DependentUpon>winTrackerGraph.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="winUpdate.xaml.cs">
+      <DependentUpon>winUpdate.xaml</DependentUpon>
     </Compile>
     <Compile Include="winUserManagement.xaml.cs">
       <DependentUpon>winUserManagement.xaml</DependentUpon>
@@ -199,7 +199,6 @@
       <DependentUpon>dbGETFITTDataSet.xsd</DependentUpon>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="GETFITT_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -238,11 +237,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="winTipsUpdate.xaml">
+    <Page Include="winTrackerGraph.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="winTrackerGraph.xaml">
+    <Page Include="winUpdate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

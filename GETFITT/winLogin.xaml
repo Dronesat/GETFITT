@@ -15,7 +15,7 @@
         <Label Content="GETFITT" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="10,38,5.2,0" VerticalAlignment="Top" Height="50" Width="428" FontSize="40" FontFamily="Arial Rounded MT Bold" Background="White" Foreground="Red"/>
         <StackPanel HorizontalAlignment="Left" Height="184" Margin="57,179,0,0" VerticalAlignment="Top" Width="325">
             <Label Content="Username" Height="22" Margin="0,0,-0.2,0" FontSize="10"/>
-            <TextBox x:Name="txtUsername" VerticalContentAlignment="Center" Height="35" TextWrapping="Wrap" Margin="0" FontSize="16" Text="hieu"/>
+            <TextBox x:Name="txtUsername" VerticalContentAlignment="Center" Height="35" TextWrapping="Wrap" Margin="0" FontSize="16"/>
             <Label Content="Password" Height="22" Margin="0,0,-0.2,0" FontSize="10"/>
             <PasswordBox x:Name="txtPassword" VerticalContentAlignment="Center" Height="35"  FontSize="16" />
             <Label Content="" Height="15"/>

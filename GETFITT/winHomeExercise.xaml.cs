@@ -137,8 +137,8 @@ namespace GETFITT
                             conn.Close();
                             conn.Dispose();
 
-                            txtInstruction.FontSize = 24;
-                            txtInstruction.Text = "Press Load to update exercises list";
+                            txtInstruction.FontSize = 22;
+                            txtInstruction.Text = "Click Load Workout Stopwatch to refresh list!";
                             txtExerciseTime.Text = "Saved";
 
                             await PutTaskDelay();

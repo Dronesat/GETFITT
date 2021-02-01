@@ -38,6 +38,7 @@ namespace GETFITT
                 return builder.ToString();
             }
         }
+
         private void btnSignUp_Click(object sender, RoutedEventArgs e)
         {
             //check if txtusername is not empty

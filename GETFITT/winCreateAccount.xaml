@@ -43,7 +43,7 @@
                 </Button.Style>
             </Button>
         </StackPanel>
-        <Button x:Name="btnManageUsers" Content="Users Management" HorizontalAlignment="Left" Margin="69,368,0,0" VerticalAlignment="Top" Width="308" Height="36" FontSize="16" Click="btnManageUsers_Click"/>
-        <Button x:Name="btnClose" Content="Close" HorizontalAlignment="Left" Margin="356,10,0,0" VerticalAlignment="Top" Width="77" Height="36" FontSize="14" Click="btnClose_Click"/>
+        <Button x:Name="btnManageUsers" Content="Users Management" Background="{x:Null}" HorizontalAlignment="Left" Margin="69,368,0,0" VerticalAlignment="Top" Width="308" Height="36" FontSize="20" Click="btnManageUsers_Click"/>
+        <Button x:Name="btnClose" Content="Close" Background="{x:Null}" HorizontalAlignment="Left" Margin="356,10,0,0" VerticalAlignment="Top" Width="77" Height="36" FontSize="18" Click="btnClose_Click"/>
     </Grid>
 </Window>

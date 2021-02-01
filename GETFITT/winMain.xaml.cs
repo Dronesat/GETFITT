@@ -48,15 +48,6 @@ namespace GETFITT
             homeworkout.Show();
         }
 
-        private void btnTipsUpdate_Click(object sender, RoutedEventArgs e)
-        {
-            //open winTipsUpdate window
-            winTipsUpdate tipsupdate = new winTipsUpdate();
-            tipsupdate.Top = 30;
-            tipsupdate.Left = 30;
-            tipsupdate.Show();
-        }
-
         private void btnTracker_Click(object sender, RoutedEventArgs e)
         {
             //open winTracker window
@@ -90,6 +81,15 @@ namespace GETFITT
             winworkoutplanner.Top = 30;
             winworkoutplanner.Left = 30;
             winworkoutplanner.Show();
+        }
+
+        private void btnUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            //open winupdate window
+            winUpdate winupdate = new winUpdate();
+            winupdate.Top = 30;
+            winupdate.Left = 30;
+            winupdate.Show();
         }
     }
 }

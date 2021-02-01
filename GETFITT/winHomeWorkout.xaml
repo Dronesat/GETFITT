@@ -73,7 +73,7 @@
                     <Button x:Name="btnClear" Content="Clear" FontSize="18" Click="btnClear_Click" Height="43"/>
                 </StackPanel>
                 <Button x:Name="btnLoad" ToolTip="Load Stopwatch Exercises from database" Content="Load Workout Stopwatch" FontSize="18" Click="btnLoad_Click" Margin="10,441,9.8,100.6"/>
-                <Button x:Name="btnSaveCompletedExercises" Content="Save this Workout to Completed" ToolTip="Save exercises in stopwatch to database" FontSize="18" Click="btnSaveCompletedExercises_Click" Margin="10,486,9.8,55.6"/>
+                <Button x:Name="btnSaveCompletedExercises" Content="Save this Workout to Completed List" ToolTip="Save exercises in stopwatch to database" FontSize="18" Click="btnSaveCompletedExercises_Click" Margin="10,486,9.8,55.6"/>
             </Grid>
         </GroupBox>
     </Grid>

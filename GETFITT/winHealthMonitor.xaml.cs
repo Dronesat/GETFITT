@@ -83,6 +83,7 @@ namespace GETFITT
             string caption = "About BMI";
             MessageBox.Show(message1 + "\n" + message2, caption);
         }
+
         private void btnCalculate_Click(object sender, RoutedEventArgs e)
         {
             bool isHeight = double.TryParse(txtHeight.Text, out height);

@@ -79,16 +79,17 @@ namespace GETFITT
                     }
                     else
                     {
-                        MessageBox.Show("Login Fail");
+                        MessageBox.Show("Invalid username or password");
                     }
                 }
                 //row not found
                 else
                 {
-                    MessageBox.Show("Invalid username or password");
+                    MessageBox.Show("Login Fail");
                 }
             }
         }
+
         //Convert string to sha256
         static string ComputeSha256Hash(string rawData)
         {
