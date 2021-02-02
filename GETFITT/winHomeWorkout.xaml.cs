@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Media;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -445,14 +444,18 @@ namespace GETFITT
                         //Declare TimeSpan
                         TimeSpan timespan = new TimeSpan(0, 0, j);
 
+                        if (j <= 3 && j > 0)
+                        {
+                            //create a promt for speak string
+                            Prompt countdown_speak = new Prompt(j.ToString());
+
+                            //speak asynchronously
+                            synth.SpeakAsync(countdown_speak);
+                        }
+
                         //update label stopwatch
                         lblStopwatch.Content = timespan.ToString(@"mm\:ss");
-                        await PutTaskDelay();
-                        System.Windows.Forms.Application.DoEvents();
-                        if (j < 3)
-                        {
-                            SystemSounds.Beep.Play();
-                        }
+                        await PutTaskDelay();                     
                     }
 
                     //create a promt for speak string
@@ -470,21 +473,25 @@ namespace GETFITT
                         //declare TimeSpan
                         TimeSpan timespan1 = new TimeSpan(0, 0, k);
 
+                        if (k <= 3 && k > 0)
+                        {
+                            //create a promt for speak string
+                            Prompt countdown_speak = new Prompt(k.ToString());
+
+                            //speak asynchronously
+                            synth.SpeakAsync(countdown_speak);
+                        }
+
                         //update label stopwatch
                         lblStopwatch.Content = timespan1.ToString(@"mm\:ss");
                         await PutTaskDelay();
-                        System.Windows.Forms.Application.DoEvents();
-                        if (k < 3)
-                        {
-                            SystemSounds.Beep.Play();
-                        }
                     }
                 }
                 //update label Exercise to Finished
                 lblExercise.Content = "Finished";
 
-                //speak
-                synth.Speak("Finished");
+                //speak Finished
+                synth.Speak("Workout Finished");
 
                 synth.Dispose();
             }
