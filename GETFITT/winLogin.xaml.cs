@@ -18,6 +18,9 @@ namespace GETFITT
         public winLogin()
         {
             InitializeComponent();
+
+            //focus on username textbox
+            txtUsername.Focus();
         }
 
         private void btnCreateAcc_Click(object sender, RoutedEventArgs e)
@@ -113,7 +116,5 @@ namespace GETFITT
         {
             Application.Current.Shutdown();
         }
-
-
     }
 }

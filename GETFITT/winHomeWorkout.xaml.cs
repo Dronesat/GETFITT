@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Speech.Synthesis;
 
 namespace GETFITT
 {
@@ -50,6 +51,7 @@ namespace GETFITT
             //Load graph
             ExercisesGraph();
 
+            //load exercises into stopwatch list
             LoadExercisesStopwatch();
         }
 
@@ -413,6 +415,12 @@ namespace GETFITT
 
         private async void btnStart_Click(object sender, RoutedEventArgs e)
         {
+            // Initialize a new instance of the SpeechSynthesizer.  
+            SpeechSynthesizer synth = new SpeechSynthesizer();
+
+            // Configure the audio output.   
+            synth.SetOutputToDefaultAudioDevice();
+
             //check if user entered rest time
             bool isRestTime = int.TryParse(txtRestTime.Text, out int n);
             if (isRestTime == true)
@@ -420,7 +428,15 @@ namespace GETFITT
                 //loop through each exercises
                 for (int i = 0; i < lstExercise.Items.Count; i++)
                 {
+                    //create a promt for speak string
+                    Prompt speak_string = new Prompt(lstExercise.Items[i].ToString());
+
+                    //speak asynchronously
+                    synth.SpeakAsync(speak_string);
+
+                    //display exercise
                     lblExercise.Content = lstExercise.Items[i].ToString();
+
                     int time = int.Parse(lstTime.Items[i].ToString());
 
                     //loop time
@@ -439,14 +455,20 @@ namespace GETFITT
                         }
                     }
 
+                    //create a promt for speak string
+                    Prompt rest_speak = new Prompt("Rest");
+
+                    //speak asynchronously
+                    synth.SpeakAsync(rest_speak);
+
+                    //display Rest 
+                    lblExercise.Content = "Rest";
+
                     //loop rest time
                     for (int k = resttime; k >= 0; k--)
                     {
                         //declare TimeSpan
                         TimeSpan timespan1 = new TimeSpan(0, 0, k);
-
-                        //display Rest 
-                        lblExercise.Content = "Rest";
 
                         //update label stopwatch
                         lblStopwatch.Content = timespan1.ToString(@"mm\:ss");
@@ -460,6 +482,11 @@ namespace GETFITT
                 }
                 //update label Exercise to Finished
                 lblExercise.Content = "Finished";
+
+                //speak
+                synth.Speak("Finished");
+
+                synth.Dispose();
             }
             else
             {

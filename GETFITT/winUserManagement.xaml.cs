@@ -88,39 +88,47 @@ namespace GETFITT
         {
             if (int.TryParse(txtUserID.Text, out int delete_id))
             {
-                //confirmation messagebox
-                MessageBoxResult messageBoxResult = MessageBox.Show("Once deleted, data cannot be recovered!", "Confirmation", MessageBoxButton.YesNo);
-                //if yes then execusted
-                if (messageBoxResult == MessageBoxResult.Yes)
+                int user_id = Convert.ToInt32(App.Current.Properties["id"].ToString());
+                if (delete_id == user_id)
                 {
-                    try
+                    MessageBox.Show("You cannot delete your account while logged in","Error");
+                }
+                else
+                {
+                    //confirmation messagebox
+                    MessageBoxResult messageBoxResult = MessageBox.Show("Once deleted, data cannot be recovered!", "Confirmation", MessageBoxButton.YesNo);
+                    //if yes then execusted
+                    if (messageBoxResult == MessageBoxResult.Yes)
                     {
-                        SqlConnection conn = new SqlConnection(strConn);
+                        try
+                        {
+                            SqlConnection conn = new SqlConnection(strConn);
 
-                        //open connection
-                        conn.Open();
+                            //open connection
+                            conn.Open();
 
-                        //execute sql cmd
-                        string strcmd = "DELETE FROM Users WHERE id = '" + delete_id + "'";
+                            //execute sql cmd
+                            string strcmd = "DELETE FROM Users WHERE id = '" + delete_id + "'";
 
-                        //execute cmd
-                        SqlCommand cmd = new SqlCommand(strcmd, conn);
-                        cmd.ExecuteNonQuery();
+                            //execute cmd
+                            SqlCommand cmd = new SqlCommand(strcmd, conn);
+                            cmd.ExecuteNonQuery();
 
-                        //close connection
-                        conn.Close();
-                        conn.Dispose();
+                            //close connection
+                            conn.Close();
+                            conn.Dispose();
 
-                        //clear textbox
-                        txtUserID.Clear();
+                            //clear textbox
+                            txtUserID.Clear();
 
-                        lsvUsers.Items.Clear();
+                            lsvUsers.Items.Clear();
 
-                        LoadUsers();
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
+                            LoadUsers();
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
                     }
                 }
             }
@@ -134,7 +142,5 @@ namespace GETFITT
         {
             this.Close();
         }
-
-
     }
 }

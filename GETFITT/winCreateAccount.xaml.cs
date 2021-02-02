@@ -18,6 +18,7 @@ namespace GETFITT
         public winCreateAccount()
         {
             InitializeComponent();
+            txtUsername.Focus();
         }
 
         //Convert string to sha256
@@ -97,14 +98,6 @@ namespace GETFITT
             {
                 MessageBox.Show("Enter Username", "Error");
             }
-        }
-
-        private void btnManageUsers_Click(object sender, RoutedEventArgs e)
-        {
-            winUserManagement winusermanagement = new winUserManagement();
-            winusermanagement.Top = 30;
-            winusermanagement.Left = 30;
-            winusermanagement.Show();
         }
 
         private void btnClose_Click(object sender, RoutedEventArgs e)

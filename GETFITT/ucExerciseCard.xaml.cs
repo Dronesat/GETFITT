@@ -10,13 +10,10 @@ namespace GETFITT
     /// </summary>
     public partial class ucExerciseCard : UserControl
     {
-        public Delegate timer_exercise;
-
         public claExercise currentExercise;
 
         public ucExerciseCard(claExercise newExercise)
         {
-
             InitializeComponent();
 
             //save the pass data on the card

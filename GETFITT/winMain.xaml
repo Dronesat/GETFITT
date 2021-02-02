@@ -147,8 +147,9 @@
         <Label x:Name="lblToday" Content="Today is: 01/01/01" HorizontalAlignment="Left" Height="56" Margin="0,103,0,0" VerticalAlignment="Top" Width="224" FontSize="20" BorderThickness="12,12,12,12" FontFamily="Lucida Sans"/>
         <Button x:Name="btnExit" Background="{x:Null}"  Content="Exit" HorizontalAlignment="Left" Height="31" Margin="691,10,0,0" VerticalAlignment="Top" Width="93" FontSize="18" Click="btnExit_Click"/>
         <Label x:Name="lblName" HorizontalContentAlignment="Left" Content="Welcome back" HorizontalAlignment="Left" Margin="10,44,0,0" VerticalAlignment="Top" Height="73" Width="370" FontSize="46" FontFamily="Brush Script MT"/>
-        <Button x:Name="btnSwitchAcc" Background="{x:Null}"  Content="Switch Account" HorizontalAlignment="Left" Margin="550,10,0,0" VerticalAlignment="Top" Width="136" Height="31" FontSize="18" Click="btnSwitchAcc_Click"/>
-        <Label x:Name="lblWelcome" Content="Good morning" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="370" Height="54" FontSize="24" FontFamily="Lucida Sans"/>
-        <Button x:Name="btnUpdate" Content="Update" Background="{x:Null}" HorizontalAlignment="Left" Margin="439,10,0,0" VerticalAlignment="Top" Width="106" Height="31" FontSize="18" Click="btnUpdate_Click"/>
+        <Button x:Name="btnSwitchAcc" Background="{x:Null}"  Content="Switch Account" HorizontalAlignment="Left" Margin="550,10,0,0" VerticalAlignment="Top" Width="136" Height="31" FontSize="16" Click="btnSwitchAcc_Click"/>
+        <Label x:Name="lblWelcome" Content="Good morning" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="249" Height="54" FontSize="24" FontFamily="Lucida Sans"/>
+        <Button x:Name="btnUpdate" Content="Update" Background="{x:Null}" HorizontalAlignment="Left" Margin="290,10,0,0" VerticalAlignment="Top" Width="106" Height="31" FontSize="16" Click="btnUpdate_Click"/>
+        <Button x:Name="btnUserManagement" Content="User Management" Background="{x:Null}" HorizontalAlignment="Left" Margin="401,10,0,0" VerticalAlignment="Top" Width="144" Height="31" FontSize="16" Click="btnUserManagement_Click"/>
     </Grid>
 </Window>

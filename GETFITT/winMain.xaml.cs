@@ -25,13 +25,13 @@ namespace GETFITT
         {
             int hourOfDay = Convert.ToInt32(DateTime.Now.ToString("HH"));
             if (hourOfDay >= 0 && hourOfDay < 12)
-                lblWelcome.Content = "Good Morning, are you feeling good today :)";
+                lblWelcome.Content = "Good Morning!";
             else if (hourOfDay >= 12 && hourOfDay < 18)
-                lblWelcome.Content = "Good Afternoon";
+                lblWelcome.Content = "Good Afternoon!";
             else if (hourOfDay >= 18 && hourOfDay < 21)
-                lblWelcome.Content = "Good Evening,";
+                lblWelcome.Content = "Good Evening!";
             else if (hourOfDay >= 21 && hourOfDay < 24)
-                lblWelcome.Content = "Good Night";
+                lblWelcome.Content = "Good Night!";
         }
 
         private void btnExit_Click(object sender, RoutedEventArgs e)
@@ -90,6 +90,15 @@ namespace GETFITT
             winupdate.Top = 30;
             winupdate.Left = 30;
             winupdate.Show();
+        }
+
+        private void btnUserManagement_Click(object sender, RoutedEventArgs e)
+        {
+            //open winUserManagement
+            winUserManagement winusermanagement = new winUserManagement();
+            winusermanagement.Top = 30;
+            winusermanagement.Left = 30;
+            winusermanagement.Show();
         }
     }
 }
