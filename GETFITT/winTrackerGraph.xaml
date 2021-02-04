@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:GETFITT"
         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         mc:Ignorable="d"
-        Title="winTrackerGraph" Height="350" Width="650" ResizeMode="NoResize">
+        Title="GETFITT" Height="350" Width="650" ResizeMode="NoResize">
     <Grid>
         <TabControl>
             <TabItem Header="BMR" Height="30" Width="100" FontSize="16">

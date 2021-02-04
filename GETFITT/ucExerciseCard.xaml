@@ -13,7 +13,7 @@
         <Button x:Name="btnView" BorderBrush="Transparent" Foreground="White" Click="btnView_Click" Background="White"></Button>
         <Label x:Name="lblExerciseName" Content="Label" HorizontalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top" Width="320" FontFamily="Arial Rounded MT Bold" FontSize="14"/>
         <Label x:Name="lblMovementPattern" Content="Label" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,26,0,0" VerticalAlignment="Top" Width="300" FontSize="10"/>
-        <Image x:Name="imgImage" HorizontalAlignment="Left" Height="60" Margin="35,60,0,0" VerticalAlignment="Top" Width="113"/>
+        <Image x:Name="imgImage" HorizontalAlignment="Left" Height="60" Margin="35,60,0,0" VerticalAlignment="Top" Width="255"/>
     </Grid>
     
 </UserControl>

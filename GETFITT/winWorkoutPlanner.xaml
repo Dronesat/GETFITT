@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GETFITT"
         mc:Ignorable="d"
-        Title="winWorkoutPlanner" Height="400" Width="650">
+        Title="GETFITT" Height="400" Width="650">
     <Grid>
         <TabControl>
             <TabItem Header="To-do Exercises" Height="30" Width="150" FontSize="16">
@@ -27,7 +27,7 @@
                     <Button x:Name="btnTodoClose" Content="Close" Margin="561,1,-0.4,294.8" Width="66" Click="btnClose_Click"></Button>
                 </Grid>
             </TabItem>
-            <TabItem Header="Completed Exercises" Height="30" Width="150" FontSize="16">
+            <TabItem Header="Completed Exercises" Height="30" Width="160" FontSize="16">
                 <Grid>
                     <DatePicker x:Name="datePicker" Margin="441,81,9.6,201.8" SelectedDateChanged="datePicker_SelectedDateChanged"/>
                     <ListView x:Name="lsvCompletedExercises" Margin="10,10,206.6,9.8" FontSize="12"></ListView>

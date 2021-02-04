@@ -91,7 +91,7 @@ namespace GETFITT
                 int user_id = Convert.ToInt32(App.Current.Properties["id"].ToString());
                 if (delete_id == user_id)
                 {
-                    MessageBox.Show("You cannot delete your account while logged in","Error");
+                    MessageBox.Show("You cannot delete your account while logged in", "Error");
                 }
                 else
                 {

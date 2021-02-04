@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GETFITT"
         mc:Ignorable="d"
-        Title="winUpdate" Height="350" Width="300">
+        Title="GETFITT" Height="350" Width="300">
     <Grid>
         <TextBox x:Name="txtReadme" HorizontalAlignment="Left" Height="206" Margin="10,28,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="270"/>
         <StackPanel HorizontalAlignment="Left" Height="72" Margin="10,239,0,0" VerticalAlignment="Top" Width="270">

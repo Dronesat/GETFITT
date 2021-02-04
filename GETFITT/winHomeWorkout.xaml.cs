@@ -5,11 +5,11 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Speech.Synthesis;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Speech.Synthesis;
 
 namespace GETFITT
 {
@@ -20,10 +20,6 @@ namespace GETFITT
     {
         //connection string
         readonly string strConn = ConfigurationManager.ConnectionStrings["dbGETFITTConnectionString"].ToString();
-
-        //declare
-        int movementpattern_id;
-        string movementpattern;
 
         //declare array
         string[] arrDay;
@@ -41,8 +37,7 @@ namespace GETFITT
         {
             InitializeComponent();
 
-            //populate listbox with all movement patterns
-            LoadMovementPattern();
+            LoadAllExercises();
 
             //Load exercise tracking
             ExercisesTracking();
@@ -115,6 +110,7 @@ namespace GETFITT
                 //open connection
                 conn.Open();
 
+                //execute cmd
                 int count = (int)cmd.ExecuteScalar();
 
                 //close connection
@@ -125,82 +121,40 @@ namespace GETFITT
             }
         }
 
-        //populate listbox with all movement patterns
-        private void LoadMovementPattern()
+        private string LoadMovementPattern(int movementpattern_id)
         {
-            try
+            //initialize connection
+            using (SqlConnection conn = new SqlConnection(strConn))
             {
-                //initialize connection
-                using (SqlConnection conn = new SqlConnection(strConn))
-                {
-                    //sql command
-                    SqlCommand cmd = new SqlCommand("SELECT * FROM MovementPatterns", conn);
+                //sql command
+                SqlCommand cmd = new SqlCommand("SELECT movementpattern FROM MovementPatterns WHERE id = '" + movementpattern_id + "'", conn);
 
-                    SqlDataAdapter da = new SqlDataAdapter(cmd);
-                    DataTable dt = new DataTable();
+                //open connection
+                conn.Open();
 
-                    //fill datatable
-                    da.Fill(dt);
+                //execute cmd
+                string movementpattern = (string)cmd.ExecuteScalar();
 
-                    //close and release
-                    conn.Close();
-                    conn.Dispose();
+                //close connection
+                conn.Close();
+                conn.Dispose();
 
-                    foreach (DataRow dr in dt.Rows)
-                    {
-                        //populate listbox with all movement patterns
-                        lsbMovementPattern.Items.Add(dr["movementpattern"].ToString());
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
+                return movementpattern;
             }
         }
 
-        private void LoadMovementPatternID(string mp)
+        private void LoadAllExercises()
         {
+            //create a hashset for movement patterns
+            HashSet<string> hshMovementPatterns = new HashSet<string>();
+
             try
             {
                 //initialize connection
                 using (SqlConnection conn = new SqlConnection(strConn))
                 {
                     //sql command
-                    SqlCommand cmd = new SqlCommand("SELECT id FROM MovementPatterns WHERE movementpattern = '" + mp + "'", conn);
-
-                    SqlDataAdapter da = new SqlDataAdapter(cmd);
-                    DataTable dt = new DataTable();
-
-                    //fill datatable
-                    da.Fill(dt);
-
-                    //close and release
-                    conn.Close();
-                    conn.Dispose();
-
-                    foreach (DataRow dr in dt.Rows)
-                    {
-                        //add id to movementpattern_id
-                        movementpattern_id = Convert.ToInt32(dr["id"].ToString());
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-        private void LoadExercise(int movementpattern_id)
-        {
-            try
-            {
-                //initialize connection
-                using (SqlConnection conn = new SqlConnection(strConn))
-                {
-                    //sql command
-                    SqlCommand cmd = new SqlCommand("SELECT id, exercise, instruction FROM Exercises WHERE movementpattern_id = '" + movementpattern_id + "'", conn);
+                    SqlCommand cmd = new SqlCommand("SELECT * FROM Exercises", conn);
 
                     SqlDataAdapter da = new SqlDataAdapter(cmd);
                     DataTable dt = new DataTable();
@@ -217,15 +171,22 @@ namespace GETFITT
                         //create object for class
                         claExercise newExercise = new claExercise();
 
+                        //get items
                         int exercise_id = Convert.ToInt32(dr["id"].ToString());
+                        int movementpattern_id = Convert.ToInt32(dr["movementpattern_id"].ToString());
+                        string movementpattern = LoadMovementPattern(movementpattern_id);
                         string exercise = dr["exercise"].ToString();
                         string instruction = dr["instruction"].ToString();
 
-                        newExercise.strMovementPattern_id = movementpattern_id;
+                        //add items to class
                         newExercise.strExercise_id = exercise_id;
+                        newExercise.strMovementPattern_id = movementpattern_id;
                         newExercise.strMovementPattern = movementpattern;
                         newExercise.strExercise = exercise;
                         newExercise.strInstruction = instruction;
+
+                        //add movementpattern to hashset
+                        hshMovementPatterns.Add(newExercise.strMovementPattern);
 
                         //create usercontrol
                         ucExerciseCard newCard = new ucExerciseCard(newExercise);
@@ -233,6 +194,9 @@ namespace GETFITT
                         //add to list of Exercises
                         claDataStore.lstExercises.Add(newCard);
                     }
+                    //add item in hashset to listbox
+                    foreach (string MovementPattern in hshMovementPatterns)
+                        lsbMovementPattern.Items.Add(MovementPattern);
                 }
             }
             catch (Exception ex)
@@ -246,26 +210,17 @@ namespace GETFITT
             //get current selected item in the listbox
             string lsbItem = lsbMovementPattern.SelectedItem.ToString();
 
-            movementpattern = lsbItem;
-
-            //get id for selected movement pattern
-            LoadMovementPatternID(lsbItem);
-
-            //Load Exercises
-            LoadExercise(movementpattern_id);
-
-            //clear the wrap panel
+            //clear wrap panel 
             wraExercise.Children.Clear();
 
-            //for each exercise create and display a user control in the wrap panel
-            foreach (ucExerciseCard currentExercise in claDataStore.lstExercises)
+            foreach (ucExerciseCard currentCard in claDataStore.lstExercises)
             {
-                //add new card to wrap panel
-                wraExercise.Children.Add(currentExercise);
+                if (currentCard.currentExercise.strMovementPattern == lsbItem)
+                {
+                    //add new card to wrap panel
+                    wraExercise.Children.Add(currentCard);
+                }
             }
-
-            //clear lstExercise 
-            claDataStore.lstExercises.Clear();
         }
 
         private void btnExit_Click(object sender, RoutedEventArgs e)
@@ -433,6 +388,19 @@ namespace GETFITT
                     //speak asynchronously
                     synth.SpeakAsync(speak_string);
 
+                    //clear wrap panel 
+                    wraExercise.Children.Clear();
+
+                    //display current exercise to wrap panel
+                    foreach (ucExerciseCard currentCard in claDataStore.lstExercises)
+                    {
+                        if (currentCard.currentExercise.strExercise == lstExercise.Items[i].ToString())
+                        {
+                            //add new card to wrap panel
+                            wraExercise.Children.Add(currentCard);
+                        }
+                    }
+
                     //display exercise
                     lblExercise.Content = lstExercise.Items[i].ToString();
 
@@ -455,7 +423,7 @@ namespace GETFITT
 
                         //update label stopwatch
                         lblStopwatch.Content = timespan.ToString(@"mm\:ss");
-                        await PutTaskDelay();                     
+                        await PutTaskDelay();
                     }
 
                     //create a promt for speak string
@@ -609,6 +577,7 @@ namespace GETFITT
         private void btnSaveCompletedExercises_Click(object sender, RoutedEventArgs e)
         {
             int count = 0;
+
             //loop through each exercises
             for (int i = 0; i < lstExercise.Items.Count; i++)
             {
@@ -654,6 +623,24 @@ namespace GETFITT
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
+                }
+            }
+        }
+
+        private void lstExercise_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //get current selected item in the listbox
+            string lsbItem = lstExercise.SelectedItem.ToString();
+
+            //clear wrap panel 
+            wraExercise.Children.Clear();
+
+            foreach (ucExerciseCard currentCard in claDataStore.lstExercises)
+            {
+                if (currentCard.currentExercise.strExercise == lsbItem)
+                {
+                    //add new card to wrap panel
+                    wraExercise.Children.Add(currentCard);
                 }
             }
         }

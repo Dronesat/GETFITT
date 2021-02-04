@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GETFITT"
         mc:Ignorable="d"
-        Title="winHomeExercise" Height="590" Width="450" ResizeMode="NoResize">
+        Title="GETFITT" Height="590" Width="450" ResizeMode="NoResize">
     <Grid Margin="0,0,-0.4,0">
         <Label x:Name="lblExercise" Content="Exercise" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top" Height="48" Width="443" FontSize="21" FontFamily="Arial Rounded MT Bold"/>
         <Label x:Name="lblMovementPattern" VerticalContentAlignment="Top" Content="MovementPattern" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="0,48,0,0" VerticalAlignment="Top" FontSize="18" Height="39" Width="443"/>

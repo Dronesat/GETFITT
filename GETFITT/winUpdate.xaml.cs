@@ -1,5 +1,5 @@
-﻿using System.Windows;
-using System.Net;
+﻿using System.Net;
+using System.Windows;
 
 namespace GETFITT
 {
@@ -12,7 +12,7 @@ namespace GETFITT
         string githubstring;
 
         public winUpdate()
-        {        
+        {
             InitializeComponent();
             githubstring = new WebClient().DownloadString(githubreadme);
             txtReadme.Text = githubstring;
