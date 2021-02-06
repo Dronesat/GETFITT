@@ -13,7 +13,7 @@
             <RowDefinition Height="0*"/>
         </Grid.RowDefinitions>
         <TabControl Margin="0,0,-0.4,-2" Grid.RowSpan="2">
-            <TabItem Header="Stats" Height="30" Width="100" FontSize="16">
+            <TabItem Header="Biometrics" Height="30" Width="100" FontSize="16" Margin="0,-1,0,0" VerticalAlignment="Top">
                 <Grid>
                     <StackPanel Margin="28,24,668,215.4">
                         <Label Content="Height" FontSize="20" Height="40"/>

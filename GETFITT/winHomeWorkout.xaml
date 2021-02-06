@@ -68,8 +68,6 @@
                     <Label Content="" Height="13"/>
                     <Button x:Name="btnAdd" Content="Add" Height="43" FontSize="18" Click="btnAdd_Click" Margin="0,0,0.4,0"/>
                     <Label Content="" Height="15" Margin="0,0,0.4,0"/>
-                    <Button x:Name="btnSubmit" Content="Submit" Height="43" FontSize="18" Click="btnSubmit_Click" Margin="0,0,0.4,0"/>
-                    <Label Content="" Height="15" Margin="0,0,0.4,0"/>
                     <Button x:Name="btnClear" Content="Clear" FontSize="18" Click="btnClear_Click" Height="43"/>
                 </StackPanel>
                 <Button x:Name="btnLoad" ToolTip="Load Stopwatch Exercises from database" Content="Load Workout Stopwatch" FontSize="18" Click="btnLoad_Click" Margin="10,441,9.8,100.6"/>

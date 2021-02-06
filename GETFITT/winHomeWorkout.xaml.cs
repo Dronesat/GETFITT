@@ -25,9 +25,6 @@ namespace GETFITT
         string[] arrDay;
         int[] arrNoExercisesPerDay;
 
-        //declare rest time
-        int resttime;
-
         //Graph
         public SeriesCollection SeriesCollection { get; set; }
         public string[] Labels { get; set; }
@@ -40,7 +37,7 @@ namespace GETFITT
             LoadAllExercises();
 
             //Load exercise tracking
-            ExercisesTracking();
+            WorkoutTracker();
 
             //Load graph
             ExercisesGraph();
@@ -49,7 +46,7 @@ namespace GETFITT
             LoadExercisesStopwatch();
         }
 
-        private void ExercisesTracking()
+        private void WorkoutTracker()
         {
             //create list
             List<string> lstDay = new List<string>();
@@ -178,7 +175,7 @@ namespace GETFITT
                         string exercise = dr["exercise"].ToString();
                         string instruction = dr["instruction"].ToString();
 
-                        //add items to class
+                        //add item to datastore
                         newExercise.strExercise_id = exercise_id;
                         newExercise.strMovementPattern_id = movementpattern_id;
                         newExercise.strMovementPattern = movementpattern;
@@ -233,9 +230,9 @@ namespace GETFITT
             //check if exercise exist or not
             if (txtExercise.Text != "")
             {
-                //check if time is exist or not
-                bool time = int.TryParse(txtTime.Text, out int n);
-                if (time == true)
+                bool isTime = int.TryParse(txtTime.Text, out int time);
+                //check time valid
+                if (isTime == true && time > 0)
                 {
                     //add input from textbox to listbox
                     lstExercise.Items.Add(txtExercise.Text);
@@ -280,50 +277,6 @@ namespace GETFITT
 
                 //change textbox color to white
                 txtExercise.Background = new SolidColorBrush(Colors.White);
-            }
-        }
-
-        private void btnSubmit_Click(object sender, RoutedEventArgs e)
-        {
-            //check if resttime exist or not 
-            bool isRestTime = int.TryParse(txtRestTime.Text, out resttime);
-            if (isRestTime == true)
-            {
-                //check item in listbox
-                if (lstTime.Items.Count > 0)
-                {
-                    MessageBox.Show("You can start stopwatch now!");
-                }
-                //no item
-                else
-                {
-                    //empty txtTime 
-                    txtTime.Text = "";
-
-                    //change textbox color to red
-                    txtTime.Background = new SolidColorBrush(Colors.Red);
-
-                    //show messagebox
-                    MessageBox.Show("Add time");
-
-                    //change textbox color to white
-                    txtTime.Background = new SolidColorBrush(Colors.White);
-                }
-            }
-            //no rest time
-            else
-            {
-                //empty txtTime 
-                txtRestTime.Text = "";
-
-                //change textbox color to red
-                txtRestTime.Background = new SolidColorBrush(Colors.Red);
-
-                //show messagebox
-                MessageBox.Show("Add rest time");
-
-                //change textbox color to white
-                txtRestTime.Background = new SolidColorBrush(Colors.White);
             }
         }
 
@@ -375,97 +328,136 @@ namespace GETFITT
             // Configure the audio output.   
             synth.SetOutputToDefaultAudioDevice();
 
-            //check if user entered rest time
-            bool isRestTime = int.TryParse(txtRestTime.Text, out int n);
-            if (isRestTime == true)
+            int lstExercisecount = Convert.ToInt32(lstExercise.Items.Count.ToString());
+            bool isRestTime = int.TryParse(txtRestTime.Text, out int resttime);
+
+            //check item in listbox
+            if (lstExercisecount != 0)
             {
-                //loop through each exercises
-                for (int i = 0; i < lstExercise.Items.Count; i++)
+                //check rest time
+                if (isRestTime == true && resttime >= 0)
                 {
-                    //create a promt for speak string
-                    Prompt speak_string = new Prompt(lstExercise.Items[i].ToString());
-
-                    //speak asynchronously
-                    synth.SpeakAsync(speak_string);
-
-                    //clear wrap panel 
-                    wraExercise.Children.Clear();
-
-                    //display current exercise to wrap panel
-                    foreach (ucExerciseCard currentCard in claDataStore.lstExercises)
+                    //loop through each exercises
+                    for (int i = 0; i < lstExercise.Items.Count; i++)
                     {
-                        if (currentCard.currentExercise.strExercise == lstExercise.Items[i].ToString())
+                        //create a promt for speak string
+                        Prompt speak_string = new Prompt(lstExercise.Items[i].ToString());
+
+                        //speak asynchronously
+                        synth.SpeakAsync(speak_string);
+
+                        //clear wrap panel 
+                        wraExercise.Children.Clear();
+
+                        //display current exercise to wrap panel
+                        foreach (ucExerciseCard currentCard in claDataStore.lstExercises)
                         {
-                            //add new card to wrap panel
-                            wraExercise.Children.Add(currentCard);
-                        }
-                    }
-
-                    //display exercise
-                    lblExercise.Content = lstExercise.Items[i].ToString();
-
-                    int time = int.Parse(lstTime.Items[i].ToString());
-
-                    //loop time
-                    for (int j = time; j >= 0; j--)
-                    {
-                        //Declare TimeSpan
-                        TimeSpan timespan = new TimeSpan(0, 0, j);
-
-                        if (j <= 3 && j > 0)
-                        {
-                            //create a promt for speak string
-                            Prompt countdown_speak = new Prompt(j.ToString());
-
-                            //speak asynchronously
-                            synth.SpeakAsync(countdown_speak);
+                            if (currentCard.currentExercise.strExercise == lstExercise.Items[i].ToString())
+                            {
+                                //add new card to wrap panel
+                                wraExercise.Children.Add(currentCard);
+                            }
                         }
 
-                        //update label stopwatch
-                        lblStopwatch.Content = timespan.ToString(@"mm\:ss");
-                        await PutTaskDelay();
-                    }
+                        //display exercise
+                        lblExercise.Content = lstExercise.Items[i].ToString();
 
-                    //create a promt for speak string
-                    Prompt rest_speak = new Prompt("Rest");
+                        int time = int.Parse(lstTime.Items[i].ToString());
 
-                    //speak asynchronously
-                    synth.SpeakAsync(rest_speak);
-
-                    //display Rest 
-                    lblExercise.Content = "Rest";
-
-                    //loop rest time
-                    for (int k = resttime; k >= 0; k--)
-                    {
-                        //declare TimeSpan
-                        TimeSpan timespan1 = new TimeSpan(0, 0, k);
-
-                        if (k <= 3 && k > 0)
+                        //loop time
+                        for (int j = time; j >= 0; j--)
                         {
-                            //create a promt for speak string
-                            Prompt countdown_speak = new Prompt(k.ToString());
+                            //Declare TimeSpan
+                            TimeSpan timespan = new TimeSpan(0, 0, j);
 
-                            //speak asynchronously
-                            synth.SpeakAsync(countdown_speak);
+                            if (j <= 3 && j > 0)
+                            {
+                                //create a promt for speak string
+                                Prompt countdown_speak = new Prompt(j.ToString());
+
+                                //speak asynchronously
+                                synth.SpeakAsync(countdown_speak);
+                            }
+
+                            //update label stopwatch
+                            lblStopwatch.Content = timespan.ToString(@"mm\:ss");
+
+                            await PutTaskDelay();
                         }
 
-                        //update label stopwatch
-                        lblStopwatch.Content = timespan1.ToString(@"mm\:ss");
-                        await PutTaskDelay();
+                        //create a promt for speak string
+                        Prompt rest_speak = new Prompt("Rest");
+
+                        //speak asynchronously
+                        synth.SpeakAsync(rest_speak);
+
+                        //display Rest 
+                        lblExercise.Content = "Rest";
+
+                        //loop rest time
+                        for (int k = resttime; k >= 0; k--)
+                        {
+                            //declare TimeSpan
+                            TimeSpan timespan1 = new TimeSpan(0, 0, k);
+
+                            if (k <= 3 && k > 0)
+                            {
+                                //create a promt for speak string
+                                Prompt countdown_speak = new Prompt(k.ToString());
+
+                                //speak asynchronously
+                                synth.SpeakAsync(countdown_speak);
+                            }
+
+                            //update label stopwatch
+                            lblStopwatch.Content = timespan1.ToString(@"mm\:ss");
+
+                            await PutTaskDelay();
+                        }
                     }
+                    //update label Exercise to Finished
+                    lblExercise.Content = "Finished";
+
+                    //speak Finished
+                    synth.Speak("Workout Finished");
+
+                    synth.Dispose();
                 }
-                //update label Exercise to Finished
-                lblExercise.Content = "Finished";
+                //rest time invalid
+                else
+                {
+                    //empty txtTime 
+                    txtRestTime.Text = "";
 
-                //speak Finished
-                synth.Speak("Workout Finished");
+                    //change textbox color to red
+                    txtRestTime.Background = new SolidColorBrush(Colors.Red);
 
-                synth.Dispose();
+                    //show messagebox
+                    MessageBox.Show("Please submit rest time", "Error");
+
+                    //change textbox color to white
+                    txtRestTime.Background = new SolidColorBrush(Colors.White);
+                }
+                
             }
+            //no item in listbox
             else
             {
-                MessageBox.Show("Please submit rest time", "Error");
+                //change textbox color to red
+                txtExercise.Background = new SolidColorBrush(Colors.Red);
+                txtTime.Background = new SolidColorBrush(Colors.Red);
+                //error messagebox
+                MessageBox.Show("Please add exercise and time","Error");
+
+                //put empty string in txtTime
+                txtExercise.Text = "";
+
+                //focus on txtTime
+                txtExercise.Focus();
+
+                //change textbox color to white
+                txtExercise.Background = new SolidColorBrush(Colors.White);
+                txtTime.Background = new SolidColorBrush(Colors.White);
             }
         }
 
@@ -576,19 +568,14 @@ namespace GETFITT
 
         private void btnSaveCompletedExercises_Click(object sender, RoutedEventArgs e)
         {
-            int count = 0;
+            //count item in listbox
+            int lstExercisecount = Convert.ToInt32(lstExercise.Items.Count.ToString());
 
-            //loop through each exercises
-            for (int i = 0; i < lstExercise.Items.Count; i++)
+            if (lstExercisecount == 0)
             {
-                count++;
+                MessageBox.Show("No exercise completed yet!","Error");
             }
-
-            if (count == 0)
-            {
-                MessageBox.Show("No exercise completed yet!");
-            }
-            else if (count > 0)
+            else if (lstExercisecount > 0)
             {
                 try
                 {
