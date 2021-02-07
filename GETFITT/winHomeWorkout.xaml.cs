@@ -77,23 +77,6 @@ namespace GETFITT
             arrNoExercisesPerDay = lstNoExercisesPerDay.ToArray();
         }
 
-        private void ExercisesGraph()
-        {
-            //draw graph using livechart
-            SeriesCollection = new SeriesCollection
-            {
-                new LineSeries
-                {
-                    Title = "Number of exercises",
-                    Values = new ChartValues<int>(arrNoExercisesPerDay),
-                    PointGeometrySize = 10
-                },
-            };
-            Labels = arrDay;
-            YFormatter = value => value + "";
-            DataContext = this;
-        }
-
         private int NumofExercisesperDay(string date)
         {
             //initialize connection
@@ -117,6 +100,25 @@ namespace GETFITT
                 return count;
             }
         }
+
+        private void ExercisesGraph()
+        {
+            //draw graph using livechart
+            SeriesCollection = new SeriesCollection
+            {
+                new LineSeries
+                {
+                    Title = "Number of exercises",
+                    Values = new ChartValues<int>(arrNoExercisesPerDay),
+                    PointGeometrySize = 10
+                },
+            };
+            Labels = arrDay;
+            YFormatter = value => value + "";
+            DataContext = this;
+        }
+
+        
 
         private string LoadMovementPattern(int movementpattern_id)
         {
@@ -225,61 +227,6 @@ namespace GETFITT
             this.Close();
         }
 
-        private void btnAdd_Click(object sender, RoutedEventArgs e)
-        {
-            //check if exercise exist or not
-            if (txtExercise.Text != "")
-            {
-                bool isTime = int.TryParse(txtTime.Text, out int time);
-                //check time valid
-                if (isTime == true && time > 0)
-                {
-                    //add input from textbox to listbox
-                    lstExercise.Items.Add(txtExercise.Text);
-                    lstTime.Items.Add(txtTime.Text);
-
-                    //empty string and reset focus
-                    txtExercise.Text = "";
-                    txtTime.Text = "";
-                    txtExercise.Focus();
-                }
-                //no time
-                else
-                {
-                    //change textbox color to red
-                    txtTime.Background = new SolidColorBrush(Colors.Red);
-
-                    //error messagebox
-                    MessageBox.Show("Check Time");
-
-                    //put empty string in txtTime
-                    txtTime.Text = "";
-
-                    //change textbox color to white
-                    txtTime.Background = new SolidColorBrush(Colors.White);
-                    //focus on txtTime
-                    txtTime.Focus();
-                }
-            }
-            //no exercise
-            else
-            {
-                //change textbox color to red
-                txtExercise.Background = new SolidColorBrush(Colors.Red);
-                //error messagebox
-                MessageBox.Show("Check Exercise");
-
-                //put empty string in txtTime
-                txtExercise.Text = "";
-
-                //focus on txtTime
-                txtExercise.Focus();
-
-                //change textbox color to white
-                txtExercise.Background = new SolidColorBrush(Colors.White);
-            }
-        }
-
         private void btnClear_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -303,9 +250,7 @@ namespace GETFITT
                 //clear listbox and textbox
                 lstExercise.Items.Clear();
                 lstTime.Items.Clear();
-                txtExercise.Text = "";
                 txtRestTime.Text = "";
-                txtTime.Text = "";
 
                 LoadExercisesStopwatch();
             }
@@ -444,20 +389,15 @@ namespace GETFITT
             else
             {
                 //change textbox color to red
-                txtExercise.Background = new SolidColorBrush(Colors.Red);
-                txtTime.Background = new SolidColorBrush(Colors.Red);
+                lstExercise.Background = new SolidColorBrush(Colors.Red);
+                lstTime.Background = new SolidColorBrush(Colors.Red);
+
                 //error messagebox
                 MessageBox.Show("Please add exercise and time","Error");
 
-                //put empty string in txtTime
-                txtExercise.Text = "";
-
-                //focus on txtTime
-                txtExercise.Focus();
-
                 //change textbox color to white
-                txtExercise.Background = new SolidColorBrush(Colors.White);
-                txtTime.Background = new SolidColorBrush(Colors.White);
+                lstExercise.Background = new SolidColorBrush(Colors.White);
+                lstTime.Background = new SolidColorBrush(Colors.White);
             }
         }
 

@@ -15,7 +15,7 @@
         <Button x:Name="btnToDo" Content="To Do" ToolTip="Save this exercise to Todo Exercises" HorizontalAlignment="Left" Margin="226,478,0,0" VerticalAlignment="Top" Width="207" Height="30" FontSize="16" Click="btnToDo_Click"/>
         <Button x:Name="btnClose" Content="Close" HorizontalAlignment="Left" Margin="10,510,0,0" VerticalAlignment="Top" Width="424" Height="30" FontSize="16" Click="btnClose_Click"/>
         <Label Content="Enter Time: (s)" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,419,0,0" VerticalAlignment="Top" Height="46" Width="150" FontSize="18"/>
-        <TextBox x:Name="txtExerciseTime" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="46" Margin="160,419,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="93" FontSize="18" BorderBrush="Black"/>
+        <TextBox x:Name="txtExerciseTime" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="46" Margin="160,419,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="93" FontSize="18" BorderBrush="Black" Text="30"/>
         <Button x:Name="btnAddToStopwatch" Content="Add to stopwatch" ToolTip="Add this exercise and time to Workout Stopwatch" HorizontalAlignment="Left" Margin="258,419,0,0" VerticalAlignment="Top" Width="175" Height="46" FontSize="18" Click="btnAddToStopwatch_Click"/>
     </Grid>
 </Window>
