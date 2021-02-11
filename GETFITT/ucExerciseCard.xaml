@@ -15,5 +15,4 @@
         <Label x:Name="lblMovementPattern" Content="Label" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,26,0,0" VerticalAlignment="Top" Width="300" FontSize="10"/>
         <Image x:Name="imgImage" HorizontalAlignment="Left" Height="60" Margin="35,60,0,0" VerticalAlignment="Top" Width="255"/>
     </Grid>
-    
 </UserControl>

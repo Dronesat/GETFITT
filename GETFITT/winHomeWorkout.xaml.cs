@@ -118,8 +118,6 @@ namespace GETFITT
             DataContext = this;
         }
 
-        
-
         private string LoadMovementPattern(int movementpattern_id)
         {
             //initialize connection

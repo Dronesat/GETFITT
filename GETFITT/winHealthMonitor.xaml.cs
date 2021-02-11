@@ -47,9 +47,6 @@ namespace GETFITT
         double calories = 0;
 
         //Declare variable
-        double height;
-        double weight;
-        int age;
         double result;
 
         //nhs url
@@ -86,15 +83,15 @@ namespace GETFITT
 
         private void btnCalculate_Click(object sender, RoutedEventArgs e)
         {
-            bool isHeight = double.TryParse(txtHeight.Text, out height);
-            bool isWeight = double.TryParse(txtWeight.Text, out weight);
-            bool isAge = int.TryParse(txtAge.Text, out age);
+            bool isHeight = double.TryParse(txtHeight.Text, out double height);
+            bool isWeight = double.TryParse(txtWeight.Text, out double weight);
+            bool isAge = int.TryParse(txtAge.Text, out int age);
 
             if (isHeight == true && height > 0 && height <= 250)
             {
                 if (isWeight == true && weight > 0 && weight <= 200)
                 {
-                    if (isAge == true && age > 0 && weight <= 100)
+                    if (isAge == true && age > 0 && age <= 100)
                     {
                         //declare BMR
                         double BMR = 0;
@@ -193,16 +190,16 @@ namespace GETFITT
                     else
                     {
                         //change textbox color to red
-                        txtWeight.Background = new SolidColorBrush(Colors.Red);
+                        txtAge.Background = new SolidColorBrush(Colors.Red);
 
                         //error message
                         MessageBox.Show("Check input age", "Error");
 
                         //change textbox color to white
-                        txtWeight.Background = new SolidColorBrush(Colors.White);
+                        txtAge.Background = new SolidColorBrush(Colors.White);
 
                         //focus on textbox
-                        txtWeight.Focus();
+                        txtAge.Focus();
                     }
                 }
                 else

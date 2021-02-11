@@ -18,6 +18,5 @@
         <TextBox x:Name="txtUserID" FontSize="16" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="35" Margin="97,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="95"/>
         <Button x:Name="btnDelete" FontSize="16" Content="Delete" HorizontalAlignment="Left" Margin="197,5,0,0" VerticalAlignment="Top" Width="87" Height="35" Click="btnDelete_Click"/>
         <Button x:Name="btnClose" Content="Close" HorizontalAlignment="Left" Margin="10,324,0,0" VerticalAlignment="Top" Width="274" Height="25" FontSize="16" Click="btnClose_Click"/>
-
     </Grid>
 </Window>
